@@ -1,0 +1,27 @@
+# WordPress — wp-content cruft we do not version
+uploads/
+upgrade/
+cache/
+et-cache/
+ai1wm-backups/
+debug.log
+*.log
+
+# Only the custom theme is tracked under themes/
+themes/*
+!themes/lubben-vet/
+
+# Vendor plugins stay on environments; spec + export live in docs/theme
+plugins/*
+!plugins/.gitkeep
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Dependencies if added later
+node_modules/
+vendor/

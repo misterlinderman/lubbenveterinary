@@ -1,0 +1,17 @@
+/*
+Theme Name: Lubben Vet
+Theme URI: https://lubbenveterinary.com
+Author: Lubben Veterinary Services — site by [developer name]
+Description: Custom theme for Lubben Veterinary Services LLC. Small, fast, accessible — built around the practice's mixed-animal, southeast-Nebraska identity and the Gravity Forms appointment-routing form.
+Version: 0.1.0
+Requires at least: 6.4
+Tested up to: 6.5
+Requires PHP: 8.1
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: lubben-vet
+Tags: custom-theme, one-column, accessibility-ready, custom-menu, featured-images, threaded-comments, translation-ready
+
+This file contains only the theme header. Real CSS is in assets/css/.
+See docs/05-build-plan.md, prompt 01 for the scaffold details.
+*/
