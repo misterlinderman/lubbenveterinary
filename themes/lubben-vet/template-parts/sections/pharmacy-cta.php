@@ -6,6 +6,7 @@ $pharmacy_url = 'https://lubbenveterinary.myvetstoreonline.pharmacy';
 ?>
 <section class="section-pharmacy-cta">
 	<div class="container pharmacy-cta">
+		<img class="pharmacy-cta__logo" src="<?php echo esc_url( lubben_vet_logo_url( 'on-primary' ) ); ?>" alt="" width="280" height="124" decoding="async" />
 		<div class="pharmacy-cta__text">
 			<h2 class="pharmacy-cta__title"><?php esc_html_e( 'Shop Our Online Pharmacy', 'lubben-vet' ); ?></h2>
 			<p>

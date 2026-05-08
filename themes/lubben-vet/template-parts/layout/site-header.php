@@ -13,7 +13,10 @@ $appointment_url = home_url( '/contact/#appointment-form' );
 <header class="site-header" role="banner">
 	<div class="site-header__inner">
 		<div class="site-header__brand">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+				<img src="<?php echo esc_url( lubben_vet_logo_url( 'default' ) ); ?>" alt="" width="220" height="98" class="site-header__logo" decoding="async" />
+				<span class="screen-reader-text"><?php bloginfo( 'name' ); ?></span>
+			</a>
 		</div>
 
 		<nav class="site-nav" role="navigation" aria-label="<?php esc_attr_e( 'Primary', 'lubben-vet' ); ?>">

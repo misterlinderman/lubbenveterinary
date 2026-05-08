@@ -3,52 +3,62 @@
  */
 
 @font-face {
-  font-family: "Source Sans 3";
+  font-family: "TT Norms Pro Serif";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("../fonts/source-sans-3-400.woff2") format("woff2");
+  src: url("../fonts/tt-norms-pro-serif-400.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Source Sans 3";
-  font-style: normal;
-  font-weight: 600;
+  font-family: "TT Norms Pro Serif";
+  font-style: italic;
+  font-weight: 400;
   font-display: swap;
-  src: url("../fonts/source-sans-3-600.woff2") format("woff2");
+  src: url("../fonts/tt-norms-pro-serif-400-italic.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: Fraunces;
+  font-family: "TT Norms Pro Serif";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("../fonts/fraunces-500.woff2") format("woff2");
+  src: url("../fonts/tt-norms-pro-serif-500.woff2") format("woff2");
+}
+
+/* UI patterns call for 600; map to Medium (same face as 500). */
+@font-face {
+  font-family: "TT Norms Pro Serif";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/tt-norms-pro-serif-500.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: Fraunces;
+  font-family: "TT Norms Pro Serif";
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("../fonts/fraunces-700.woff2") format("woff2");
+  src: url("../fonts/tt-norms-pro-serif-700.woff2") format("woff2");
 }
 
 :root {
-  --color-bg: #fbf8f3;
-  --color-surface: #fff;
-  --color-text: #1f2a24;
-  --color-text-muted: #5a6660;
-  --color-primary: #2f5d3a;
-  --color-primary-hover: #244a2d;
-  --color-accent: #c97b3f;
+  /* Neutrals: #58595b, #808285, #a7a9ac, #ffffff — bg ≈ 9% tint of #a7a9ac on white (matches theme.json). */
+  --color-bg: #f3f3f4;
+  --color-surface: #ffffff;
+  --color-text: #58595b;
+  --color-text-muted: #808285;
+  --color-primary: #292a76;
+  --color-primary-hover: #1e1f58;
+  --color-accent: #b87333;
   /* Accent wash for notices (forms); derived from accent + surface — no extra hex. */
   --color-accent-surface: color-mix(in srgb, var(--color-accent) 14%, var(--color-surface));
-  --color-border: #e4ddd0;
-  --color-focus: #2f5d3a;
+  --color-border: color-mix(in srgb, #a7a9ac 38%, #ffffff);
+  --color-focus: #292a76;
 
-  --font-body: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-heading: Fraunces, Georgia, "Times New Roman", serif;
+  --font-body: "TT Norms Pro Serif", Georgia, "Times New Roman", serif;
+  --font-heading: "TT Norms Pro Serif", Georgia, "Times New Roman", serif;
 
   --fs-display: clamp(2.25rem, 1.85rem + 2vw, 3.5rem);
   --fs-h1: clamp(1.875rem, 1.55rem + 1.4vw, 2.5rem);

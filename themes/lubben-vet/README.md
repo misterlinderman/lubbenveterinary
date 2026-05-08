@@ -24,7 +24,7 @@ themes/lubben-vet/
 │   │   └── editor.css              Block editor styles
 │   ├── js/
 │   │   └── nav.js                  Mobile nav toggle (vanilla)
-│   ├── fonts/                      Self-hosted Source Sans 3 + Fraunces
+│   ├── fonts/                      Self-hosted TT Norms Pro Serif (WOFF2)
 │   └── images/                     Icons (stroke SVGs) + hero defaults (jpg/webp)
 │
 ├── inc/                            All PHP logic — required by functions.php

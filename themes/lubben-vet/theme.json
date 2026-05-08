@@ -9,55 +9,54 @@
       "customDuotone": false,
       "defaultPalette": false,
       "palette": [
-        { "slug": "bg", "color": "#FBF8F3", "name": "Background" },
+        { "slug": "bg", "color": "#F3F3F4", "name": "Background" },
         { "slug": "surface", "color": "#FFFFFF", "name": "Surface" },
-        { "slug": "text", "color": "#1F2A24", "name": "Text" },
-        { "slug": "text-muted", "color": "#5A6660", "name": "Muted text" },
-        { "slug": "primary", "color": "#2F5D3A", "name": "Primary" },
-        { "slug": "primary-hover", "color": "#244A2D", "name": "Primary hover" },
-        { "slug": "accent", "color": "#C97B3F", "name": "Accent" },
-        { "slug": "border", "color": "#E4DDD0", "name": "Border" },
-        { "slug": "focus", "color": "#2F5D3A", "name": "Focus" }
+        { "slug": "text", "color": "#58595B", "name": "Text" },
+        { "slug": "text-muted", "color": "#808285", "name": "Muted text" },
+        { "slug": "primary", "color": "#292A76", "name": "Primary" },
+        { "slug": "primary-hover", "color": "#1E1F58", "name": "Primary hover" },
+        { "slug": "accent", "color": "#B87333", "name": "Accent" },
+        { "slug": "border", "color": "#D7D8DA", "name": "Border" },
+        { "slug": "focus", "color": "#292A76", "name": "Focus" }
       ]
     },
     "typography": {
       "customFontSize": true,
       "fontFamilies": [
         {
-          "fontFamily": "\"Source Sans 3\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
-          "slug": "source-sans-3",
-          "name": "Source Sans 3",
+          "fontFamily": "\"TT Norms Pro Serif\", Georgia, \"Times New Roman\", serif",
+          "slug": "tt-norms-pro-serif",
+          "name": "TT Norms Pro Serif",
           "fontFace": [
             {
-              "fontFamily": "Source Sans 3",
+              "fontFamily": "TT Norms Pro Serif",
               "fontWeight": "400",
               "fontStyle": "normal",
-              "src": [ "file:./assets/fonts/source-sans-3-400.woff2" ]
+              "src": [ "file:./assets/fonts/tt-norms-pro-serif-400.woff2" ]
             },
             {
-              "fontFamily": "Source Sans 3",
-              "fontWeight": "600",
-              "fontStyle": "normal",
-              "src": [ "file:./assets/fonts/source-sans-3-600.woff2" ]
-            }
-          ]
-        },
-        {
-          "fontFamily": "Fraunces, Georgia, \"Times New Roman\", serif",
-          "slug": "fraunces",
-          "name": "Fraunces",
-          "fontFace": [
+              "fontFamily": "TT Norms Pro Serif",
+              "fontWeight": "400",
+              "fontStyle": "italic",
+              "src": [ "file:./assets/fonts/tt-norms-pro-serif-400-italic.woff2" ]
+            },
             {
-              "fontFamily": "Fraunces",
+              "fontFamily": "TT Norms Pro Serif",
               "fontWeight": "500",
               "fontStyle": "normal",
-              "src": [ "file:./assets/fonts/fraunces-500.woff2" ]
+              "src": [ "file:./assets/fonts/tt-norms-pro-serif-500.woff2" ]
             },
             {
-              "fontFamily": "Fraunces",
+              "fontFamily": "TT Norms Pro Serif",
+              "fontWeight": "600",
+              "fontStyle": "normal",
+              "src": [ "file:./assets/fonts/tt-norms-pro-serif-500.woff2" ]
+            },
+            {
+              "fontFamily": "TT Norms Pro Serif",
               "fontWeight": "700",
               "fontStyle": "normal",
-              "src": [ "file:./assets/fonts/fraunces-700.woff2" ]
+              "src": [ "file:./assets/fonts/tt-norms-pro-serif-700.woff2" ]
             }
           ]
         }
@@ -91,7 +90,7 @@
   },
   "styles": {
     "typography": {
-      "fontFamily": "var(--wp--preset--font-family--source-sans-3)",
+      "fontFamily": "var(--wp--preset--font-family--tt-norms-pro-serif)",
       "fontSize": "var(--wp--preset--font-size--body)",
       "lineHeight": "1.6"
     },
@@ -102,7 +101,7 @@
     "elements": {
       "h1": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--fraunces)",
+          "fontFamily": "var(--wp--preset--font-family--tt-norms-pro-serif)",
           "fontSize": "var(--wp--preset--font-size--h1)",
           "lineHeight": "1.2",
           "fontWeight": "700"
@@ -110,7 +109,7 @@
       },
       "h2": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--fraunces)",
+          "fontFamily": "var(--wp--preset--font-family--tt-norms-pro-serif)",
           "fontSize": "var(--wp--preset--font-size--h2)",
           "lineHeight": "1.2",
           "fontWeight": "700"
@@ -118,7 +117,7 @@
       },
       "h3": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--fraunces)",
+          "fontFamily": "var(--wp--preset--font-family--tt-norms-pro-serif)",
           "fontSize": "var(--wp--preset--font-size--h3)",
           "lineHeight": "1.2",
           "fontWeight": "500"

@@ -8,41 +8,35 @@ A small system for a small site. Everything here is implemented as CSS custom pr
 
 ## Color palette
 
-Working palette — finalize during design approval (Phase 1). All combinations listed pass WCAG 2.1 AA for body text or large text as noted.
+Brand and neutral ramp (2026 refresh). Derive borders and page background from the light neutral where noted in `tokens.css` / `theme.json`.
 
 | Token | Hex | Use |
 |---|---|---|
-| `--color-bg` | `#FBF8F3` | Page background — warm off-white |
+| `--color-bg` | `#F3F3F4` | Page background — light neutral |
 | `--color-surface` | `#FFFFFF` | Cards, form fields |
-| `--color-text` | `#1F2A24` | Body text — passes AA on `--color-bg` |
-| `--color-text-muted` | `#5A6660` | Secondary text, captions |
-| `--color-primary` | `#2F5D3A` | Primary brand green — buttons, links |
-| `--color-primary-hover` | `#244A2D` | Hover/active state |
-| `--color-accent` | `#C97B3F` | Accent (warm clay) — used sparingly for emphasis |
-| `--color-border` | `#E4DDD0` | Hairlines, card borders |
-| `--color-focus` | `#2F5D3A` | Focus ring (uses primary at 100% with 3px outline + 2px offset) |
+| `--color-text` | `#58595B` | Body text |
+| `--color-text-muted` | `#808285` | Secondary text, captions |
+| `--color-primary` | `#292A76` | Primary brand — buttons, links, key surfaces |
+| `--color-primary-hover` | `#1E1F58` | Hover/active state |
+| `--color-accent` | `#B87333` | Accent — emphasis, icons (use sparingly) |
+| `--color-border` | `#D7D8DA` | Hairlines, card borders (≈ mix of `#A7A9AC` toward white) |
+| `--color-focus` | `#292A76` | Focus ring (3px outline + 2px offset) |
 
-**Contrast notes**
+**Neutral ramp (reference):** `#58595B`, `#808285`, `#A7A9AC`, `#FFFFFF`.
 
-- `--color-text` on `--color-bg`: ~13.2:1 — passes AAA.
-- `--color-primary` on `--color-bg`: ~7.4:1 — passes AAA for normal text.
-- White on `--color-primary`: ~7.0:1 — passes AAA.
-- `--color-text-muted` on `--color-bg`: ~5.1:1 — passes AA for normal text.
-
-If we end up adjusting any swatch during design approval, re-run a contrast check before committing.
+Re-run contrast checks if any swatch changes.
 
 ---
 
 ## Typography
 
-Two families. Both available on Google Fonts but **self-hosted** in `assets/fonts/` so we don't ping a third party on every page load.
+One family for both body and headings — **self-hosted** WOFF2 in `assets/fonts/` (converted from licensed OTF per `docs/design system update/woff2-conversion-instructions.md`).
 
-| Role | Family | Fallback stack |
-|---|---|---|
-| Body | **Source Sans 3** (400, 600) | `system-ui, -apple-system, "Segoe UI", Roboto, sans-serif` |
-| Heading | **Fraunces** (500, 700) — slab/serif w/ humanist warmth | `Georgia, "Times New Roman", serif` |
+| Role | Family | Weights in use | Fallback stack |
+|---|---|---|---|
+| Body + heading | **TT Norms Pro Serif** | 400 (incl. italic), 500, 600* maps to Medium file, 700 | `Georgia, "Times New Roman", serif` |
 
-**Why these:** Fraunces gives headings a settled, regional, slightly old-stock-photo-album quality that matches the practice's voice without being precious. Source Sans 3 is a workhorse — extremely readable on small screens, broad weight range, open license.
+Block editor picks up the same family via `theme.json` `fontFace` entries.
 
 **Type scale** (mobile → desktop, fluid via `clamp()`)
 
@@ -83,9 +77,13 @@ One scale, used everywhere. Multiples of 4px.
 - **Section vertical rhythm:** `--space-9` between major sections on desktop, `--space-7` on mobile.
 - **Breakpoints:** mobile-first. The only hard breakpoint we treat as a "real" layout shift is **768px** (tablet) and **1024px** (desktop).
 
+## Logos
+
+SVGs in `themes/lubben-vet/assets/images/`: **version 1** (`lubben-vet-logo-2026-1.svg`) includes the primary color field — use on light backgrounds (header, footer). **Version 1b** (`lubben-vet-logo-2026-1b.svg`) is transparent artwork for placing on primary-colored bands (e.g. pharmacy CTA).
+
 ## Components
 
-- **Buttons** — primary (filled green), secondary (outline green), tertiary (text link with underline). Min target size 44×44px. Focus ring: 3px solid `--color-focus`, 2px offset.
+- **Buttons** — primary (filled brand), secondary (outline brand), tertiary (text link with underline). Min target size 44×44px. Focus ring: 3px solid `--color-focus`, 2px offset.
 - **Form fields** — 1px border `--color-border`, focus state swaps border to `--color-primary` and adds a 2px outset ring. Labels always visible; no placeholder-as-label.
 - **Cards** — white surface, 1px border, 16px corner radius, soft shadow (`0 1px 2px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04)`).
 - **Hero image** — single image, no carousel. Object-fit cover, max height 70vh, lazy-loaded above-the-fold image marked `fetchpriority="high"`.

@@ -164,3 +164,16 @@ function lubben_vet_staff_initials( $name ) {
 
 	return strtoupper( mb_substr( $parts[0], 0, 1 ) . mb_substr( $parts[ count( $parts ) - 1 ], 0, 1 ) );
 }
+
+/**
+ * URL for a bundled SVG logo. Use `default` on light backgrounds (mark includes primary field).
+ * Use `on-primary` on primary-colored bands (transparent artwork).
+ *
+ * @param string $variant `default`|`on-primary`.
+ * @return string
+ */
+function lubben_vet_logo_url( $variant = 'default' ) {
+	$file = ( 'on-primary' === $variant ) ? 'lubben-vet-logo-2026-1b.svg' : 'lubben-vet-logo-2026-1.svg';
+
+	return get_template_directory_uri() . '/assets/images/' . $file;
+}
