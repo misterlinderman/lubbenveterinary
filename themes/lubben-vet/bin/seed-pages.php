@@ -62,7 +62,7 @@ function lubben_vet_seed_ensure_page( $slug, $title, $template, $content = '', $
 	return (int) $post_id;
 }
 
-$about_intro = '<!-- wp:paragraph --><p>' . __( 'Whether you are new to the area or have known us for years, we are glad you are here. Below you will find more about our practice, Dr. Lubben, and the team that keeps things running smoothly.', 'lubben-vet' ) . '</p><!-- /wp:paragraph -->';
+$about_intro = '<!-- wp:paragraph --><p>' . __( 'Welcome. Lubben Veterinary Services is a mixed animal practice in Louisville, serving Cass, Sarpy, Otoe, and Saunders counties. Below you will find our story, Dr. Lubben\'s background, and the people you will meet when you walk through our door.', 'lubben-vet' ) . '</p><!-- /wp:paragraph -->';
 
 $contact_intro = '<!-- wp:paragraph --><p>' . __( 'We would love to help — send a note below or call the office.', 'lubben-vet' ) . '</p><!-- /wp:paragraph -->';
 

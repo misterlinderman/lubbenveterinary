@@ -9,6 +9,26 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Document titles — exact strings from docs/03-content-migration.md §SEO metadata.
+ *
+ * @param string $title The pre-filtered title (may be empty on first pass).
+ * @return string
+ */
+function lubben_vet_pre_get_document_title( $title ) {
+	if ( is_front_page() ) {
+		return 'Lubben Veterinary Services — Louisville, NE';
+	}
+	if ( is_page( 'about' ) ) {
+		return 'About Lubben Veterinary Services — Dr. Scott Lubben, DVM';
+	}
+	if ( is_page( 'contact' ) ) {
+		return 'Contact & Hours — Lubben Veterinary Services';
+	}
+	return $title;
+}
+add_filter( 'pre_get_document_title', 'lubben_vet_pre_get_document_title', 11 );
+
+/**
  * Map of page slug → meta description (unescaped strings).
  *
  * @return array<string, string>

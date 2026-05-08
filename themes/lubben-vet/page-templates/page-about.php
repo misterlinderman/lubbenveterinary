@@ -30,10 +30,10 @@ get_header();
 		<section class="about-section" id="practice">
 			<h2><?php esc_html_e( 'Our Practice', 'lubben-vet' ); ?></h2>
 			<p>
-				<?php esc_html_e( 'Lubben Veterinary Services LLC was formed in 2016. Dr. Scott Lubben is the owner and sole veterinarian in the practice. Dr. Lubben has served the Cass County area for many years. Previously working in a mixed animal practice in the Plattsmouth area, he has fulfilled the needs of our area with his farm and home mobile practice.', 'lubben-vet' ); ?>
+				<?php esc_html_e( 'Lubben Veterinary Services LLC was formed in 2016. Dr. Scott Lubben is the owner and sole veterinarian in the practice. Dr. Lubben has served the Cass County area for over three decades. Previously working in a mixed animal practice in the Plattsmouth area, he has fulfilled the needs of our area with his farm and home mobile practice.', 'lubben-vet' ); ?>
 			</p>
 			<p>
-				<?php esc_html_e( 'With the addition of the new facilities in Louisville, he has expanded his practice to include small animal surgeries and advanced medicine. He is able to handle many of your animal care needs, including urgent situations after hours. For animal emergencies, call the office number 402-234-1054 and you will be instructed on how to reach Dr. Lubben.', 'lubben-vet' ); ?>
+				<?php esc_html_e( 'With the addition of the new facilities in Louisville, he has expanded his practice to include small animal surgeries and advanced medicine. He is able to handle all of your animal care needs, including after hours. For animal emergencies, call the office number 402-234-1054 and you will be instructed on how to reach Dr. Lubben.', 'lubben-vet' ); ?>
 			</p>
 			<p>
 				<?php esc_html_e( 'We welcome the opportunity to serve you and your animal family in our new home.', 'lubben-vet' ); ?>
@@ -46,7 +46,7 @@ get_header();
 				<?php esc_html_e( 'Lubben Veterinary Services LLC is only the latest in Dr. Lubben\'s veterinary service to Cass, Sarpy, Otoe, and Saunders counties. After graduation he served as a mixed animal practitioner at Plattsmouth Animal Hospital for 20 years and the next six years as the only large animal veterinarian in Cass County. Dr. Lubben has opened the Louisville office to better serve the local and surrounding areas.', 'lubben-vet' ); ?>
 			</p>
 			<p>
-				<?php esc_html_e( 'As a native of southeast Nebraska, he understands the needs and concerns of large animal and pet owners alike. Dr. Lubben grew up on a farm in southeast Nebraska. He earned his DVM from Kansas State University in May of 1990. Dr. Lubben and his wife Karen were married in 1986 and have three children: Angie (EJ) Buglewicz, Matt (Lauren), and Jeremiah.', 'lubben-vet' ); ?>
+				<?php esc_html_e( 'As a native of southeast Nebraska, he understands the needs and concerns of all large animal and pet owners. Dr. Lubben grew up on a farm in southeast Nebraska. He graduated with his DVM from Kansas State University in May of 1990. Dr. Lubben and his wife Karen were married in 1986 and have three children: Angie (EJ) Buglewicz, Matt (Lauren), and Jeremiah.', 'lubben-vet' ); ?>
 			</p>
 			<blockquote class="about-pullquote" cite="<?php echo esc_url( home_url( '/' ) ); ?>">
 				<p><?php esc_html_e( 'Providing quality veterinary care to all of God\'s creatures great and small.', 'lubben-vet' ); ?></p>

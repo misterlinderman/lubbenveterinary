@@ -15,12 +15,12 @@ $services = array(
 	),
 	array(
 		'title' => __( 'Surgery & Advanced Medicine', 'lubben-vet' ),
-		'text'  => __( 'Performed in our Louisville clinic.', 'lubben-vet' ),
+		'text'  => __( 'performed in our Louisville clinic.', 'lubben-vet' ),
 		'icon'  => 'stethoscope',
 	),
 	array(
 		'title' => __( 'After-Hours Emergencies', 'lubben-vet' ),
-		'text'  => __( 'Call 402-234-1054 day or night.', 'lubben-vet' ),
+		'text'  => __( 'call 402-234-1054 day or night.', 'lubben-vet' ),
 		'icon'  => 'alert',
 	),
 );

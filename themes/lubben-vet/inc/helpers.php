@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Practice address parts (unescaped).
+ * Practice address parts (unescaped). Verbatim from docs/03-content-migration.md.
  *
  * @return array<string, string>
  */
@@ -70,14 +70,15 @@ function lubben_vet_maps_embed_url() {
 /**
  * Office hours labels → lines (unescaped values).
  *
+ * Labels/values use en dashes per docs/03-content-migration.md §Content to keep verbatim.
+ *
  * @return array<string, string>
  */
 function get_lubben_hours() {
-	// Wording matches docs/01-information-architecture.md §Contact (launch copy).
 	$data = array(
-		__( 'Monday – Friday', 'lubben-vet' ) => __( '7am – 6pm', 'lubben-vet' ),
-		__( 'Saturday', 'lubben-vet' )        => __( '8am – 12pm', 'lubben-vet' ),
-		__( 'Sunday', 'lubben-vet' )           => __( 'Closed', 'lubben-vet' ),
+		__( 'Monday–Friday', 'lubben-vet' ) => __( '7am–6pm', 'lubben-vet' ),
+		__( 'Saturday', 'lubben-vet' )      => __( '8am–12pm', 'lubben-vet' ),
+		__( 'Sunday', 'lubben-vet' )        => __( 'Closed', 'lubben-vet' ),
 	);
 
 	return apply_filters( 'lubben_vet_hours', $data );
@@ -126,19 +127,19 @@ function get_lubben_staff() {
 		array(
 			'name'     => 'Michaela Nielsen',
 			'role'     => __( 'Office Manager', 'lubben-vet' ),
-			'bio'      => __( 'Lead administrator and primary point of contact for scheduling and client care.', 'lubben-vet' ),
+			'bio'      => __( 'Office manager for Lubben Veterinary Services. Scheduling, records, and making sure your visit goes smoothly; more after intake.', 'lubben-vet' ),
 			'photo_id' => 0,
 		),
 		array(
 			'name'     => 'Candy Damme',
 			'role'     => __( 'Staff', 'lubben-vet' ),
-			'bio'      => __( 'Helps keep our patients and clients comfortable from check-in to checkout.', 'lubben-vet' ),
+			'bio'      => __( 'Part of our client and patient care team. Personal bio coming after intake.', 'lubben-vet' ),
 			'photo_id' => 0,
 		),
 		array(
 			'name'     => 'LeAnn Burger',
 			'role'     => __( 'Staff', 'lubben-vet' ),
-			'bio'      => __( 'Supports the care team and the people who love their animals.', 'lubben-vet' ),
+			'bio'      => __( 'Part of our client and patient care team. Personal bio coming after intake.', 'lubben-vet' ),
 			'photo_id' => 0,
 		),
 	);
