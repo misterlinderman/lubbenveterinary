@@ -52,7 +52,6 @@ get_header();
 
 	<section class="appointment-form" id="appointment-form">
 		<h2><?php esc_html_e( 'Request an Appointment', 'lubben-vet' ); ?></h2>
-		<p><?php esc_html_e( 'We\'ll get back to you within one business day. For after-hours emergencies, please call 402-234-1054.', 'lubben-vet' ); ?></p>
 		<?php lubben_vet_render_contact_form(); ?>
 	</section>
 </article>

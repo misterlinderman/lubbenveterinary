@@ -9,7 +9,16 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Render the primary contact / appointment form (ID 1).
+ * Form ID for the primary contact / appointment form (defaults to 1; set by installer option).
+ *
+ * @return int
+ */
+function lubben_vet_get_contact_form_id() {
+	return (int) apply_filters( 'lubben_vet_contact_form_id', (int) get_option( 'lubben_vet_gf_contact_form_id', 1 ) );
+}
+
+/**
+ * Render the primary contact / appointment form.
  */
 function lubben_vet_render_contact_form() {
 	if ( ! function_exists( 'gravity_form' ) ) {
@@ -17,7 +26,18 @@ function lubben_vet_render_contact_form() {
 		return;
 	}
 
-	gravity_form( 1, false, false, false, null, true, 1, true );
+	$form_id = lubben_vet_get_contact_form_id();
+
+	gravity_form(
+		$form_id,
+		false,
+		true,
+		false,
+		null,
+		true,
+		1,
+		true
+	);
 }
 
 /**
@@ -30,13 +50,89 @@ function lubben_vet_gform_disable_theme_css() {
 }
 
 /**
- * Optional dynamic form tweaks.
+ * Contact form: ensure submit label (definition also sets it; this keeps translations central).
  *
- * @param array $form Form object.
- * @return array
+ * @param array<string, mixed> $form Form array.
+ * @return array<string, mixed>
  */
-function lubben_vet_gform_dynamic_defaults( $form ) {
+function lubben_vet_gform_contact_form_tweaks( $form ) {
+	if ( empty( $form['id'] ) || lubben_vet_get_contact_form_id() !== (int) $form['id'] ) {
+		return $form;
+	}
+
+	if ( isset( $form['button'] ) && is_array( $form['button'] ) ) {
+		$form['button']['type'] = 'text';
+		$form['button']['text'] = __( 'Send Request', 'lubben-vet' );
+	}
+
 	return $form;
+}
+
+/**
+ * Preferred date cannot be before today (field 7).
+ *
+ * @param array<string, mixed>                $result Validation result.
+ * @param mixed                               $value  Submitted value.
+ * @param array<string, mixed>                $form   Form array.
+ * @param GF_Field|object $field Field object.
+ * @return array<string, mixed>
+ */
+function lubben_vet_gform_contact_preferred_date_validation( $result, $value, $form, $field ) {
+	if ( ! is_object( $field ) || empty( $form['id'] ) || lubben_vet_get_contact_form_id() !== (int) $form['id'] ) {
+		return $result;
+	}
+
+	if ( 'date' !== $field->type || 7 !== (int) $field->id ) {
+		return $result;
+	}
+
+	if ( $result['is_valid'] && '' === (string) $value ) {
+		return $result;
+	}
+
+	$value     = (string) $value;
+	$submitted = DateTime::createFromFormat( 'm/d/Y', $value, wp_timezone() );
+	if ( ! $submitted instanceof DateTime ) {
+		return $result;
+	}
+
+	$today = new DateTime( 'today', wp_timezone() );
+	if ( $submitted < $today ) {
+		$result['is_valid'] = false;
+		$result['message']  = esc_html__( 'Please choose today or a future date.', 'lubben-vet' );
+	}
+
+	return $result;
+}
+
+/**
+ * Appointment staff email: BCC Dr. Lubben when mobile/farm visit is checked (field 9).
+ *
+ * @param array<string, mixed>      $notification Notification settings.
+ * @param array<string, mixed>      $form         Form array.
+ * @param array<string, mixed>|false $entry       Entry.
+ * @return array<string, mixed>|false
+ */
+function lubben_vet_gform_appointment_bcc_dr( $notification, $form, $entry ) {
+	if ( empty( $form['id'] ) || lubben_vet_get_contact_form_id() !== (int) $form['id'] ) {
+		return $notification;
+	}
+
+	if ( empty( $notification['name'] ) || 'Appointment requests' !== $notification['name'] ) {
+		return $notification;
+	}
+
+	if ( ! is_array( $entry ) ) {
+		return $notification;
+	}
+
+	$bcc_dr = 'dr.lubben@lubbenveterinary.com';
+	if ( ! empty( $entry['9.1'] ) ) {
+		$existing        = isset( $notification['bcc'] ) ? trim( (string) $notification['bcc'] ) : '';
+		$notification['bcc'] = $existing ? $existing . ', ' . $bcc_dr : $bcc_dr;
+	}
+
+	return $notification;
 }
 
 /**
@@ -50,7 +146,7 @@ function lubben_vet_gform_dynamic_defaults( $form ) {
  * @return string
  */
 function lubben_vet_gform_field_content_classes( $field_content, $field, $value, $entry_id, $form_id ) {
-	if ( 1 !== (int) $form_id || ! is_object( $field ) || ! isset( $field->type, $field->id ) ) {
+	if ( lubben_vet_get_contact_form_id() !== (int) $form_id || ! is_object( $field ) || ! isset( $field->type, $field->id ) ) {
 		return $field_content;
 	}
 
@@ -75,7 +171,7 @@ function lubben_vet_gform_field_content_classes( $field_content, $field, $value,
  * @return string
  */
 function lubben_vet_gform_confirmation_emergency_class( $confirmation, $form, $entry, $ajax ) {
-	if ( empty( $form['id'] ) || 1 !== (int) $form['id'] || empty( $confirmation ) ) {
+	if ( empty( $form['id'] ) || lubben_vet_get_contact_form_id() !== (int) $form['id'] || empty( $confirmation ) ) {
 		return $confirmation;
 	}
 
@@ -91,10 +187,12 @@ function lubben_vet_gform_confirmation_emergency_class( $confirmation, $form, $e
 
 if ( class_exists( 'GFForms' ) ) {
 	add_filter( 'gform_disable_form_theme_css', 'lubben_vet_gform_disable_theme_css' );
-	add_filter( 'gform_pre_render', 'lubben_vet_gform_dynamic_defaults' );
-	add_filter( 'gform_pre_validation', 'lubben_vet_gform_dynamic_defaults' );
-	add_filter( 'gform_pre_submission_filter', 'lubben_vet_gform_dynamic_defaults' );
-	add_filter( 'gform_admin_pre_render', 'lubben_vet_gform_dynamic_defaults' );
+	add_filter( 'gform_pre_render', 'lubben_vet_gform_contact_form_tweaks' );
+	add_filter( 'gform_pre_validation', 'lubben_vet_gform_contact_form_tweaks' );
+	add_filter( 'gform_pre_submission_filter', 'lubben_vet_gform_contact_form_tweaks' );
+	add_filter( 'gform_admin_pre_render', 'lubben_vet_gform_contact_form_tweaks' );
+	add_filter( 'gform_field_validation', 'lubben_vet_gform_contact_preferred_date_validation', 10, 4 );
+	add_filter( 'gform_notification', 'lubben_vet_gform_appointment_bcc_dr', 10, 3 );
 	add_filter( 'gform_field_content', 'lubben_vet_gform_field_content_classes', 10, 5 );
 	add_filter( 'gform_confirmation', 'lubben_vet_gform_confirmation_emergency_class', 15, 4 );
 }

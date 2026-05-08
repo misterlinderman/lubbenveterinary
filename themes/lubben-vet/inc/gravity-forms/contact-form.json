@@ -1,1 +1,508 @@
-[]
+{
+    "0": {
+        "title": "Request an Appointment / Contact Us",
+        "description": "We'll get back to you within one business day. For after-hours emergencies, please call 402-234-1054.",
+        "labelPlacement": "top_label",
+        "descriptionPlacement": "below",
+        "markupVersion": 2,
+        "enableHoneypot": true,
+        "honeypotAction": "spam",
+        "button": {
+            "type": "text",
+            "text": "Send Request",
+            "imageUrl": ""
+        },
+        "personalData": {
+            "preventIP": false,
+            "retention": {
+                "policy": "delete",
+                "retain_entries_days": 365
+            }
+        },
+        "fields": [
+            {
+                "type": "radio",
+                "id": 1,
+                "formId": 0,
+                "label": "What's this about?",
+                "adminLabel": "Topic",
+                "isRequired": true,
+                "size": "large",
+                "errorMessage": "",
+                "choices": [
+                    {
+                        "text": "Appointment request",
+                        "value": "Appointment request",
+                        "isSelected": false,
+                        "price": ""
+                    },
+                    {
+                        "text": "General question",
+                        "value": "General question",
+                        "isSelected": false,
+                        "price": ""
+                    },
+                    {
+                        "text": "Billing or records",
+                        "value": "Billing or records",
+                        "isSelected": false,
+                        "price": ""
+                    },
+                    {
+                        "text": "Emergency",
+                        "value": "Emergency",
+                        "isSelected": false,
+                        "price": "",
+                        "description": "Use only for non-urgent messages; for an active emergency, call the clinic."
+                    }
+                ],
+                "inputs": null,
+                "conditionalLogic": "",
+                "description": "",
+                "allowsPrepopulate": false,
+                "cssClass": ""
+            },
+            {
+                "type": "name",
+                "id": 2,
+                "formId": 0,
+                "label": "Your name",
+                "isRequired": true,
+                "nameFormat": "advanced",
+                "errorMessage": "",
+                "inputs": [
+                    {
+                        "id": "2.2",
+                        "label": "Prefix",
+                        "name": "",
+                        "isHidden": true
+                    },
+                    {
+                        "id": "2.3",
+                        "label": "First",
+                        "name": "",
+                        "isHidden": false
+                    },
+                    {
+                        "id": "2.4",
+                        "label": "Middle",
+                        "name": "",
+                        "isHidden": true
+                    },
+                    {
+                        "id": "2.6",
+                        "label": "Last",
+                        "name": "",
+                        "isHidden": false
+                    },
+                    {
+                        "id": "2.8",
+                        "label": "Suffix",
+                        "name": "",
+                        "isHidden": true
+                    }
+                ],
+                "conditionalLogic": ""
+            },
+            {
+                "type": "phone",
+                "id": 3,
+                "formId": 0,
+                "label": "Phone number",
+                "isRequired": true,
+                "phoneFormat": "standard",
+                "errorMessage": "",
+                "inputs": null,
+                "conditionalLogic": ""
+            },
+            {
+                "type": "email",
+                "id": 4,
+                "formId": 0,
+                "label": "Email address",
+                "isRequired": true,
+                "errorMessage": "",
+                "inputs": null,
+                "conditionalLogic": ""
+            },
+            {
+                "type": "radio",
+                "id": 5,
+                "formId": 0,
+                "label": "What kind of patient?",
+                "isRequired": true,
+                "conditionalLogic": {
+                    "actionType": "show",
+                    "logicType": "all",
+                    "rules": [
+                        {
+                            "fieldId": 1,
+                            "operator": "is",
+                            "value": "Appointment request"
+                        }
+                    ]
+                },
+                "choices": [
+                    {
+                        "text": "Small animal (dog, cat, etc.)",
+                        "value": "Small animal (dog, cat, etc.)",
+                        "isSelected": false,
+                        "price": ""
+                    },
+                    {
+                        "text": "Large animal (cattle, equine, etc.)",
+                        "value": "Large animal (cattle, equine, etc.)",
+                        "isSelected": false,
+                        "price": ""
+                    },
+                    {
+                        "text": "Other",
+                        "value": "Other",
+                        "isSelected": false,
+                        "price": ""
+                    }
+                ],
+                "inputs": null
+            },
+            {
+                "type": "text",
+                "id": 6,
+                "formId": 0,
+                "label": "Patient name & species",
+                "isRequired": true,
+                "placeholder": "Bella — golden retriever",
+                "conditionalLogic": {
+                    "actionType": "show",
+                    "logicType": "all",
+                    "rules": [
+                        {
+                            "fieldId": 1,
+                            "operator": "is",
+                            "value": "Appointment request"
+                        }
+                    ]
+                },
+                "inputs": null
+            },
+            {
+                "type": "date",
+                "id": 7,
+                "formId": 0,
+                "label": "Preferred date",
+                "isRequired": false,
+                "dateType": "datepicker",
+                "dateFormat": "mdy",
+                "inputs": null,
+                "conditionalLogic": {
+                    "actionType": "show",
+                    "logicType": "all",
+                    "rules": [
+                        {
+                            "fieldId": 1,
+                            "operator": "is",
+                            "value": "Appointment request"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "radio",
+                "id": 8,
+                "formId": 0,
+                "label": "Preferred time",
+                "isRequired": false,
+                "choices": [
+                    {
+                        "text": "Morning",
+                        "value": "Morning",
+                        "isSelected": false,
+                        "price": ""
+                    },
+                    {
+                        "text": "Midday",
+                        "value": "Midday",
+                        "isSelected": false,
+                        "price": ""
+                    },
+                    {
+                        "text": "Afternoon",
+                        "value": "Afternoon",
+                        "isSelected": false,
+                        "price": ""
+                    },
+                    {
+                        "text": "No preference",
+                        "value": "No preference",
+                        "isSelected": false,
+                        "price": ""
+                    }
+                ],
+                "inputs": null,
+                "conditionalLogic": {
+                    "actionType": "show",
+                    "logicType": "all",
+                    "rules": [
+                        {
+                            "fieldId": 1,
+                            "operator": "is",
+                            "value": "Appointment request"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "checkbox",
+                "id": 9,
+                "formId": 0,
+                "label": "Need a mobile/farm visit?",
+                "isRequired": false,
+                "choices": [
+                    {
+                        "text": "Yes, I'd like Dr. Lubben to come to me",
+                        "value": "Yes, I'd like Dr. Lubben to come to me",
+                        "isSelected": false,
+                        "price": ""
+                    }
+                ],
+                "inputs": [
+                    {
+                        "id": "9.1",
+                        "label": "Yes, I'd like Dr. Lubben to come to me"
+                    }
+                ],
+                "conditionalLogic": {
+                    "actionType": "show",
+                    "logicType": "all",
+                    "rules": [
+                        {
+                            "fieldId": 1,
+                            "operator": "is",
+                            "value": "Appointment request"
+                        },
+                        {
+                            "fieldId": 5,
+                            "operator": "is",
+                            "value": "Large animal (cattle, equine, etc.)"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "textarea",
+                "id": 10,
+                "formId": 0,
+                "label": "Anything we should know?",
+                "isRequired": false,
+                "size": "medium",
+                "maxLength": "",
+                "inputMask": false,
+                "inputMaskValue": "",
+                "allowsPrepopulate": false,
+                "enableCalculation": "",
+                "conditionalLogic": ""
+            },
+            {
+                "type": "html",
+                "id": 11,
+                "formId": 0,
+                "label": "Emergency notice",
+                "content": "<p>For an active animal emergency, please call 402-234-1054 right now — the office line reaches Dr. Lubben directly after hours. This form is not monitored 24/7.</p>",
+                "conditionalLogic": {
+                    "actionType": "show",
+                    "logicType": "all",
+                    "rules": [
+                        {
+                            "fieldId": 1,
+                            "operator": "is",
+                            "value": "Emergency"
+                        }
+                    ]
+                }
+            }
+        ],
+        "notifications": {
+            "a7f3c9102a4b1": {
+                "isActive": true,
+                "id": "a7f3c9102a4b1",
+                "name": "Appointment requests",
+                "service": "wordpress",
+                "event": "form_submission",
+                "to": "michaela@lubbenveterinary.com",
+                "toType": "email",
+                "bcc": "",
+                "subject": "[Appointment] {Name (Prefix):2.2} {Name (Last):2.6} — {Patient name & species:6}",
+                "message": "{all_fields}\n\n---\nSubmitted from: {embed_url}\nDate: {date_mdy}",
+                "from": "noreply@lubbenveterinary.com",
+                "fromName": "Lubben Veterinary Website",
+                "replyTo": "{Email:4}",
+                "conditionalLogic": {
+                    "actionType": "show",
+                    "logicType": "all",
+                    "rules": [
+                        {
+                            "fieldId": 1,
+                            "operator": "is",
+                            "value": "Appointment request"
+                        }
+                    ]
+                },
+                "disableAutoformat": false,
+                "enableAttachments": false
+            },
+            "b7f3c9102a4b2": {
+                "isActive": true,
+                "id": "b7f3c9102a4b2",
+                "name": "General questions",
+                "service": "wordpress",
+                "event": "form_submission",
+                "to": "michaela@lubbenveterinary.com",
+                "toType": "email",
+                "subject": "[General] Question from {Name (First):2.3} {Name (Last):2.6}",
+                "message": "{all_fields}\n\n---\n{embed_url}",
+                "from": "noreply@lubbenveterinary.com",
+                "fromName": "Lubben Veterinary Website",
+                "replyTo": "{Email:4}",
+                "conditionalLogic": {
+                    "actionType": "show",
+                    "logicType": "all",
+                    "rules": [
+                        {
+                            "fieldId": 1,
+                            "operator": "is",
+                            "value": "General question"
+                        }
+                    ]
+                },
+                "disableAutoformat": false,
+                "enableAttachments": false
+            },
+            "c7f3c9102a4b3": {
+                "isActive": true,
+                "id": "c7f3c9102a4b3",
+                "name": "Billing or records",
+                "service": "wordpress",
+                "event": "form_submission",
+                "to": "billing@lubbenveterinary.com",
+                "toType": "email",
+                "subject": "[Billing/Records] {Name (First):2.3} {Name (Last):2.6}",
+                "message": "{all_fields}\n\n---\n{embed_url}",
+                "from": "noreply@lubbenveterinary.com",
+                "fromName": "Lubben Veterinary Website",
+                "replyTo": "{Email:4}",
+                "conditionalLogic": {
+                    "actionType": "show",
+                    "logicType": "all",
+                    "rules": [
+                        {
+                            "fieldId": 1,
+                            "operator": "is",
+                            "value": "Billing or records"
+                        }
+                    ]
+                },
+                "disableAutoformat": false,
+                "enableAttachments": false
+            },
+            "d7f3c9102a4b4": {
+                "isActive": true,
+                "id": "d7f3c9102a4b4",
+                "name": "Emergency-flagged submission",
+                "service": "wordpress",
+                "event": "form_submission",
+                "to": "michaela@lubbenveterinary.com, dr.lubben@lubbenveterinary.com",
+                "toType": "email",
+                "subject": "🚨 [EMERGENCY via website] {Name (First):2.3} {Name (Last):2.6} — {Phone:3}",
+                "message": "Phone: {Phone:3}\nName: {Name (First):2.3} {Name (Last):2.6}\n\nNotes:\n{Anything we should know?:10}\n\n---\nThis is a website-form emergency submission. The submitter was instructed to call 402-234-1054.\n\n{all_fields}\n\n{embed_url}",
+                "from": "noreply@lubbenveterinary.com",
+                "fromName": "Lubben Veterinary Website",
+                "replyTo": "{Email:4}",
+                "conditionalLogic": {
+                    "actionType": "show",
+                    "logicType": "all",
+                    "rules": [
+                        {
+                            "fieldId": 1,
+                            "operator": "is",
+                            "value": "Emergency"
+                        }
+                    ]
+                },
+                "disableAutoformat": false,
+                "enableAttachments": false
+            },
+            "e7f3c9102a4b5": {
+                "isActive": true,
+                "id": "e7f3c9102a4b5",
+                "name": "Confirmation to submitter",
+                "service": "wordpress",
+                "event": "form_submission",
+                "to": "4",
+                "toType": "field",
+                "subject": "We received your message — Lubben Veterinary Services",
+                "message": "Hi {Name (First):2.3},\n\nThanks for reaching out. We received your message regarding \"{Topic:1}\".\n\nOur office hours are Monday–Friday 7am–6pm and Saturday 8am–12pm. For after-hours emergencies, call 402-234-1054 — the office line reaches Dr. Lubben directly after hours.\n\nWe aim to respond within one business day.\n\n— Lubben Veterinary Services",
+                "from": "noreply@lubbenveterinary.com",
+                "fromName": "Lubben Veterinary Website",
+                "replyTo": "{Email:4}",
+                "conditionalLogic": {
+                    "actionType": "show",
+                    "logicType": "all",
+                    "rules": [
+                        {
+                            "fieldId": 1,
+                            "operator": "isnot",
+                            "value": "Emergency"
+                        }
+                    ]
+                },
+                "disableAutoformat": false,
+                "enableAttachments": false
+            }
+        },
+        "confirmations": {
+            "f7f3c9102a4b6": {
+                "id": "f7f3c9102a4b6",
+                "name": "Default Confirmation",
+                "isDefault": true,
+                "type": "message",
+                "message": "Thanks, {Name (First):2.3} — we got your message and will be in touch within one business day. Office hours are Monday–Friday 7am–6pm and Saturday 8am–12pm.",
+                "url": "",
+                "pageId": "",
+                "queryString": "",
+                "conditionalLogic": {
+                    "actionType": "show",
+                    "logicType": "all",
+                    "rules": [
+                        {
+                            "fieldId": 1,
+                            "operator": "isnot",
+                            "value": "Emergency"
+                        }
+                    ]
+                }
+            },
+            "f7f3c9102a4b7": {
+                "id": "f7f3c9102a4b7",
+                "name": "Emergency confirmation",
+                "isDefault": false,
+                "type": "message",
+                "message": "We received your message. <strong>For an active emergency, please call 402-234-1054 right now</strong> — the office line reaches Dr. Lubben directly after hours.",
+                "url": "",
+                "pageId": "",
+                "queryString": "",
+                "conditionalLogic": {
+                    "actionType": "show",
+                    "logicType": "all",
+                    "rules": [
+                        {
+                            "fieldId": 1,
+                            "operator": "is",
+                            "value": "Emergency"
+                        }
+                    ]
+                }
+            }
+        },
+        "is_active": "1"
+    },
+    "version": "2.8.0"
+}
