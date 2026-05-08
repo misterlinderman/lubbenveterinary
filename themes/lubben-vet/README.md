@@ -34,8 +34,7 @@ themes/lubben-vet/
 │   ├── helpers.php                 get_lubben_hours/staff/address/phone
 │   ├── redirects.php               Legacy URL → new URL 301s
 │   ├── seo.php                     <meta description> + Open Graph
-│   ├── security.php                Security headers
-│   ├── customizer.php              Customizer settings (hero image, etc.)
+│   ├── customizer.php              Customizer settings (hero image)
 │   ├── gravity-forms-helpers.php   GF integration glue
 │   └── gravity-forms/
 │       └── contact-form.json       Exported form — re-importable
@@ -70,8 +69,8 @@ themes/lubben-vet/
 1. Drop `lubben-vet/` into a WordPress install's `wp-content/themes/`.
 2. Activate via *Appearance → Themes*.
 3. Install **Gravity Forms** (license required) and **WP Mail SMTP** (free).
-4. Run `wp eval-file themes/lubben-vet/bin/seed-pages.php` to create the three pages with the right templates.
-5. Import `inc/gravity-forms/contact-form.json` via *Forms → Import/Export*.
+4. Run `wp eval-file wp-content/themes/lubben-vet/bin/seed-pages.php` from the WordPress root (example: `app/public`) to create the three pages with the right templates, assign the static front page, and wire menus.
+5. Import Gravity Forms using the JSON at `inc/gravity-forms/contact-form.json` once that file contains a real export from WP Admin (the committed `[]` placeholder must be replaced).
 6. Configure WP Mail SMTP against the practice's actual mail provider.
 7. Test all four conditional notification paths.
 

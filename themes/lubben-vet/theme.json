@@ -1,0 +1,106 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 2,
+  "settings": {
+    "useRootPaddingAwareAlignments": true,
+    "appearanceTools": false,
+    "color": {
+      "custom": true,
+      "customDuotone": false,
+      "defaultPalette": false,
+      "palette": [
+        { "slug": "bg", "color": "#FBF8F3", "name": "Background" },
+        { "slug": "surface", "color": "#FFFFFF", "name": "Surface" },
+        { "slug": "text", "color": "#1F2A24", "name": "Text" },
+        { "slug": "text-muted", "color": "#5A6660", "name": "Muted text" },
+        { "slug": "primary", "color": "#2F5D3A", "name": "Primary" },
+        { "slug": "primary-hover", "color": "#244A2D", "name": "Primary hover" },
+        { "slug": "accent", "color": "#C97B3F", "name": "Accent" },
+        { "slug": "border", "color": "#E4DDD0", "name": "Border" },
+        { "slug": "focus", "color": "#2F5D3A", "name": "Focus" }
+      ]
+    },
+    "typography": {
+      "customFontSize": true,
+      "fontFamilies": [
+        {
+          "fontFamily": "\"Source Sans 3\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+          "slug": "source-sans-3",
+          "name": "Source Sans 3"
+        },
+        {
+          "fontFamily": "Fraunces, Georgia, \"Times New Roman\", serif",
+          "slug": "fraunces",
+          "name": "Fraunces"
+        }
+      ],
+      "fontSizes": [
+        { "slug": "small", "size": "0.875rem", "name": "Small" },
+        { "slug": "body", "size": "clamp(1rem, 0.95rem + 0.25vw, 1.0625rem)", "name": "Body" },
+        { "slug": "h3", "size": "clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem)", "name": "Heading 3" },
+        { "slug": "h2", "size": "clamp(1.5rem, 1.3rem + 0.9vw, 2rem)", "name": "Heading 2" },
+        { "slug": "h1", "size": "clamp(1.875rem, 1.55rem + 1.4vw, 2.5rem)", "name": "Heading 1" },
+        { "slug": "display", "size": "clamp(2.25rem, 1.85rem + 2vw, 3.5rem)", "name": "Display" }
+      ]
+    },
+    "spacing": {
+      "spacingSizes": [
+        { "slug": "1", "size": "0.25rem", "name": "4px" },
+        { "slug": "2", "size": "0.5rem", "name": "8px" },
+        { "slug": "3", "size": "0.75rem", "name": "12px" },
+        { "slug": "4", "size": "1rem", "name": "16px" },
+        { "slug": "5", "size": "1.5rem", "name": "24px" },
+        { "slug": "6", "size": "2rem", "name": "32px" },
+        { "slug": "7", "size": "3rem", "name": "48px" },
+        { "slug": "8", "size": "4rem", "name": "64px" },
+        { "slug": "9", "size": "6rem", "name": "96px" }
+      ]
+    },
+    "layout": {
+      "contentSize": "720px",
+      "wideSize": "1140px"
+    }
+  },
+  "styles": {
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--source-sans-3)",
+      "fontSize": "var(--wp--preset--font-size--body)",
+      "lineHeight": "1.6"
+    },
+    "color": {
+      "background": "var(--wp--preset--color--bg)",
+      "text": "var(--wp--preset--color--text)"
+    },
+    "elements": {
+      "h1": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--fraunces)",
+          "fontSize": "var(--wp--preset--font-size--h1)",
+          "lineHeight": "1.2",
+          "fontWeight": "700"
+        }
+      },
+      "h2": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--fraunces)",
+          "fontSize": "var(--wp--preset--font-size--h2)",
+          "lineHeight": "1.2",
+          "fontWeight": "700"
+        }
+      },
+      "h3": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--fraunces)",
+          "fontSize": "var(--wp--preset--font-size--h3)",
+          "lineHeight": "1.2",
+          "fontWeight": "600"
+        }
+      },
+      "link": {
+        "color": { "text": "var(--wp--preset--color--primary)" },
+        "typography": { "textDecoration": "underline" }
+      }
+    }
+  },
+  "patterns": [ "hero-banner", "staff-card", "cta-pharmacy" ]
+}
