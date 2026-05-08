@@ -26,12 +26,40 @@
         {
           "fontFamily": "\"Source Sans 3\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
           "slug": "source-sans-3",
-          "name": "Source Sans 3"
+          "name": "Source Sans 3",
+          "fontFace": [
+            {
+              "fontFamily": "Source Sans 3",
+              "fontWeight": "400",
+              "fontStyle": "normal",
+              "src": [ "file:./assets/fonts/source-sans-3-400.woff2" ]
+            },
+            {
+              "fontFamily": "Source Sans 3",
+              "fontWeight": "600",
+              "fontStyle": "normal",
+              "src": [ "file:./assets/fonts/source-sans-3-600.woff2" ]
+            }
+          ]
         },
         {
           "fontFamily": "Fraunces, Georgia, \"Times New Roman\", serif",
           "slug": "fraunces",
-          "name": "Fraunces"
+          "name": "Fraunces",
+          "fontFace": [
+            {
+              "fontFamily": "Fraunces",
+              "fontWeight": "500",
+              "fontStyle": "normal",
+              "src": [ "file:./assets/fonts/fraunces-500.woff2" ]
+            },
+            {
+              "fontFamily": "Fraunces",
+              "fontWeight": "700",
+              "fontStyle": "normal",
+              "src": [ "file:./assets/fonts/fraunces-700.woff2" ]
+            }
+          ]
         }
       ],
       "fontSizes": [
@@ -93,7 +121,7 @@
           "fontFamily": "var(--wp--preset--font-family--fraunces)",
           "fontSize": "var(--wp--preset--font-size--h3)",
           "lineHeight": "1.2",
-          "fontWeight": "600"
+          "fontWeight": "500"
         }
       },
       "link": {

@@ -25,6 +25,8 @@ $lubben_vet_includes = array(
 	'inc/enqueue.php',
 	'inc/nav-menus.php',
 	'inc/helpers.php',
+	'inc/icons.php',
+	'inc/images.php',
 	'inc/customizer.php',
 	'inc/redirects.php',
 	'inc/seo.php',

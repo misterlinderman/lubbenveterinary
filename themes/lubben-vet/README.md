@@ -25,13 +25,15 @@ themes/lubben-vet/
 │   ├── js/
 │   │   └── nav.js                  Mobile nav toggle (vanilla)
 │   ├── fonts/                      Self-hosted Source Sans 3 + Fraunces
-│   └── images/                     Theme-bundled images (icons, defaults)
+│   └── images/                     Icons (stroke SVGs) + hero defaults (jpg/webp)
 │
 ├── inc/                            All PHP logic — required by functions.php
 │   ├── setup.php                   after_setup_theme registration
 │   ├── enqueue.php                 wp_enqueue_scripts + block editor assets
 │   ├── nav-menus.php               Menu locations
 │   ├── helpers.php                 get_lubben_hours/staff/address/phone
+│   ├── icons.php                   Cached SVG icons (assets/images/icons/)
+│   ├── images.php                  <picture> helper when WebP meta exists
 │   ├── redirects.php               Legacy URL → new URL 301s
 │   ├── seo.php                     <meta description> + Open Graph
 │   ├── customizer.php              Customizer settings (hero image)

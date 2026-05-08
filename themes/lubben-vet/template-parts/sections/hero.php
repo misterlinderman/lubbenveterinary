@@ -13,30 +13,51 @@ $hero_id         = absint( get_theme_mod( 'lubben_vet_hero_image', 0 ) );
 			if ( ! is_string( $alt ) ) {
 				$alt = '';
 			}
-			echo wp_get_attachment_image(
+			lubben_vet_the_attachment_picture(
 				$hero_id,
 				'lubben-hero',
-				false,
 				array(
-					'class'           => 'hero__image',
-					'fetchpriority'   => 'high',
-					'loading'         => 'eager',
-					'alt'             => $alt,
-					'decoding'        => 'async',
+					'class'         => 'hero__image',
+					'fetchpriority' => 'high',
+					'loading'       => 'eager',
+					'alt'           => $alt,
+					'decoding'      => 'async',
 				)
 			);
 		} else {
-			?>
-			<img
-				class="hero__image"
-				src="<?php echo esc_url( get_theme_file_uri( 'assets/images/hero-default.jpg' ) ); ?>"
-				alt=""
-				width="1920"
-				height="900"
-				fetchpriority="high"
-				loading="eager"
-			>
-			<?php
+			$webp_path = get_theme_file_path( 'assets/images/hero-default.webp' );
+			$jpg       = get_theme_file_uri( 'assets/images/hero-default.jpg' );
+			if ( is_readable( $webp_path ) ) {
+				$webp = get_theme_file_uri( 'assets/images/hero-default.webp' );
+				?>
+				<picture>
+					<source type="image/webp" srcset="<?php echo esc_url( $webp ); ?>">
+					<img
+						class="hero__image"
+						src="<?php echo esc_url( $jpg ); ?>"
+						alt=""
+						width="1920"
+						height="900"
+						fetchpriority="high"
+						loading="eager"
+						decoding="async"
+					>
+				</picture>
+				<?php
+			} else {
+				?>
+				<img
+					class="hero__image"
+					src="<?php echo esc_url( $jpg ); ?>"
+					alt=""
+					width="1920"
+					height="900"
+					fetchpriority="high"
+					loading="eager"
+					decoding="async"
+				>
+				<?php
+			}
 		}
 		?>
 	</div>
