@@ -6,6 +6,7 @@ Run this top-to-bottom on launch day. Anything unchecked is a launch blocker.
 
 ## 48 hours before launch
 
+- [ ] **Repo sanity script** — from the site root, run `wp eval-file wp-content/themes/lubben-vet/bin/verify-launch-checklist.php` (legacy 301 map, key theme paths, `blog_public`). Fix any reported `FAIL` before go-live.
 - [ ] **TTL lowered** on the existing DNS for lubbenveterinary.com to 300 seconds (5 min). This shrinks the propagation window when we cut over.
 - [ ] **Bluehost site reachable** via temporary URL or `hosts` file entry — the full site renders, all three pages load, the form submits a test entry, and the test entry triggers all four conditional notifications correctly.
 - [ ] **SMTP plugin configured** (WP Mail SMTP or equivalent) and a test email from WP Mail SMTP's *Send a Test Email* tool reaches an external inbox. **Without this, Gravity Forms notifications will not deliver reliably from Bluehost.**

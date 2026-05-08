@@ -1,85 +1,150 @@
 # 07 — Handoff to Michaela
 
-A short, plain-language reference for the practice's day-to-day site management. This is the document we leave with the client.
+Plain-language reference for day-to-day site management. This stays with the practice after launch.
+
+---
+
+## At a glance
+
+| | |
+|---|---|
+| **Public site** | https://lubbenveterinary.com |
+| **Admin** | https://lubbenveterinary.com/wp-admin |
+| **Phone** | 402-234-1054 |
+| **After-hours emergencies** | Same number — reaches Dr. Lubben |
+| **Online pharmacy** | https://lubbenveterinary.myvetstoreonline.pharmacy |
+| **Address** | 1276 Sand Hill Circle, Suite 1, Louisville, NE 68037 |
 
 ---
 
 ## Logging in
 
-- **Login URL:** https://lubbenveterinary.com/wp-admin
 - **Your username:** *(set at intake)*
-- **Password reset:** the *Lost your password?* link on the login page sends a reset email.
+- **Password reset:** use *Lost your password?* on the login page.
 
-If you ever get locked out: Bluehost has a host-level password reset, and the developer can also help.
+If you are locked out: Bluehost can reset access at the hosting level; the developer can help as well.
+
+---
 
 ## Editing a page
 
 1. Log in.
-2. Top-left, click **Pages**.
-3. Click the page you want to edit (Home, About, or Contact).
-4. Use the editor to change text, swap images, or rearrange sections.
-5. Click **Update** in the top right when you're done. Changes appear on the live site immediately.
+2. Click **Pages** (left sidebar).
+3. Open **Home**, **About**, or **Contact**.
+4. Edit text and blocks in the main editor.
+5. Click **Update** (top right). Changes go live immediately.
 
-If you make a mistake, don't panic — every change is saved as a revision. From the editor's right-side panel, click **Revisions** to roll back to any earlier version.
+**Revisions:** In the editor’s right panel, **Revisions** lets you restore an older version.
 
-## Swapping a photo
+---
 
-1. Click the photo in the editor.
-2. In the toolbar that appears, click **Replace**.
-3. Upload a new image or pick one from the **Media Library**.
-4. Add **alt text** in the right-side panel — a short description of what's in the photo (this matters for accessibility and search).
-5. **Update** to save.
+## Homepage hero image
 
-A note on image size: WordPress automatically generates the right sizes. Upload at the largest size you have (a phone camera photo is fine). The system trims down for you.
+The large photo at the top of the home page is **not** inside the page editor.
 
-## Updating office hours
+1. Go to **Appearance → Customize**.
+2. Open **Lubben Vet**.
+3. Under **Homepage hero image**, choose or upload an image.
+4. Click **Publish**.
 
-Hours live in **two places** on the site, and updating them in one place updates both:
+---
 
-1. **Pages → Contact → "Hours" section** — change the text here.
-2. The footer hours block reads from the same theme setting, so editing in Contact updates the footer too.
+## Hours, phone, and address (important)
 
-If you also want to update the hours that show on the homepage's *Visit us* section, edit that section on the Home page directly.
+**Office hours, the main phone number, and the street address** are stored in the **theme code** so the **same** information appears everywhere at once:
 
-## Reviewing form submissions
+- Footer (**Hours** column)
+- Home page (**Visit us**)
+- Contact page (**Hours** block)
 
-Every contact form submission is saved in WordPress in addition to being emailed.
+They are **not** tied to the text you type in **Pages → Contact**. Changing hours or the public phone number means **emailing the developer** (a small code change), unless you later add a “site settings” plugin.
 
-1. Go to **Forms** in the left sidebar.
-2. Click **Entries** on *Request an Appointment*.
-3. Browse, search, or export entries to CSV.
+The **Contact** page editor is still the right place for any **intro paragraphs** or other content in the main body above those sections.
 
-If a submission didn't land in your email but shows up here, that's an email-delivery issue — let the developer know and we'll check the SMTP setup.
+---
+
+## Swapping a photo in a page
+
+1. Click the image in the editor.
+2. Click **Replace** in the toolbar.
+3. Upload a new file or pick from **Media Library**.
+4. Add **alt text** in the right panel (short description of the image).
+5. **Update** the page.
+
+WordPress creates smaller sizes automatically; a phone photo is usually fine to upload.
+
+---
+
+## Navigation menus
+
+Header and footer links come from WordPress menus:
+
+1. **Appearance → Menus**.
+2. Choose **Primary** or **Footer**, or create a menu and assign it to that location.
+3. Save.
+
+Do **not** change **Settings → Permalinks** — that can break old bookmarked URLs that we redirect from the previous site.
+
+---
+
+## Contact form (Gravity Forms)
+
+Submitted messages are **emailed** and **saved** in WordPress.
+
+**View entries**
+
+1. In the left sidebar, open **Forms** (Gravity Forms).
+2. Click **Entries** for **Request an Appointment / Contact Us** (or the live title of form 1).
+
+**Export:** From the entries screen you can export to CSV if needed.
+
+**Spam / delivery:** If email didn’t arrive but the entry appears here, it is almost always **email delivery** (SMTP). Tell the developer.
+
+This form is a **general inquiry** channel — not a HIPAA portal. Avoid pasting detailed medical history; use it to ask for a callback or appointment.
+
+---
 
 ## Who gets which email
 
 | Inquiry type | Recipient(s) |
 |---|---|
-| Appointment request | Michaela (you) — plus Dr. Lubben if it's a mobile/farm visit |
+| Appointment request | Michaela — plus Dr. Lubben (BCC) if “mobile/farm visit” is checked |
 | General question | Michaela |
-| Billing or records | *(confirm at intake — usually Michaela)* |
+| Billing or records | Billing inbox *(confirm at intake — may be Michaela)* |
 | Emergency | Dr. Lubben + Michaela |
 
-You can change these by emailing the developer; we'll update the form's notification rules.
-
-## Things you shouldn't change unless you mean to
-
-These are safe to leave alone forever:
-
-- **Settings → Permalinks** — page URLs. Changing this breaks the legacy redirects from the old site.
-- **Appearance → Themes** — the active theme is "Lubben Vet". Switching to another theme will hide all the design work.
-- **Plugins** — leave installed plugins active. Updates are fine and recommended; deactivating Gravity Forms takes the contact form down.
-
-## When something looks wrong
-
-1. Try logging out and reloading in a private/incognito window — most "the site looks weird" issues are caching-related and resolve themselves within an hour.
-2. If a form notification didn't arrive, check **Forms → Entries** to see if the submission landed in the system. If it did, it's an email-delivery issue. If it didn't, send the developer a screenshot.
-3. For anything else, email the developer with as much detail as you can — what page, what device (phone or computer), what you saw vs. what you expected.
-
-## Backups
-
-Automatic daily backups are configured at the host level. We also recommend a manual backup before any large content update — there's a *Backup Now* button in the Bluehost dashboard.
+Routing is set in the form’s **Notifications**. Changes go through the developer.
 
 ---
 
-*This handoff is also available as a printable PDF — ask the developer.*
+## Things to leave as they are
+
+- **Settings → Permalinks**
+- **Appearance → Themes** — keep **Lubben Vet** active
+- **Plugins** — keep active (especially **Gravity Forms** and your **SMTP** plugin). Updating plugins from the dashboard is fine; don’t delete or deactivate unless the developer says so.
+
+---
+
+## When something looks wrong
+
+1. **Hard refresh** or try an **incognito/private** window — caching often causes “old” pages.
+2. **Form email missing?** Check **Forms → Entries** first.
+3. Still stuck? Email the developer with the page URL, phone vs computer, and a screenshot if possible.
+
+---
+
+## Backups
+
+Use the host’s backup tools (e.g. **Backup Now** in the Bluehost dashboard). Automatic backups are usually on by default.
+
+---
+
+## Training video (launch day)
+
+Short recording (e.g. Loom): updating the **homepage hero** in the Customizer, **replacing a photo** on a page, and **opening form entries**.
+
+**Recording link:** *(paste URL here)*
+
+---
+
+*Printable PDF — ask the developer if you want a copy.*
