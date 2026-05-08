@@ -46,25 +46,42 @@ function lubben_vet_format_address_line() {
 }
 
 /**
- * Google Maps search URL for the practice.
+ * Google Maps place URL for the practice (official listing).
  *
  * @return string
  */
 function lubben_vet_maps_link_url() {
-	$query = lubben_vet_format_address_line();
-
-	return 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode( $query );
+	return 'https://www.google.com/maps/place/Lubben+Veterinary+Service,+LLC/@40.9878424,-96.1641287,17z/data=!4m15!1m8!3m7!1s0x87940e6525d53eb9:0x61ed8483e726489!2s1276+Sand+Hill+Rd+STE+1,+Louisville,+NE+68037!3b1!8m2!3d40.9878424!4d-96.1641287!16s%2Fg%2F11kc4d56_w!3m5!1s0x87940e639d55b131:0x2169c548e13a5336!8m2!3d40.9878424!4d-96.1641287!16s%2Fg%2F11cl_g3ws8';
 }
 
 /**
- * Google Maps embed URL (no API key).
+ * Map iframe embed URL — same coordinates as lubben_vet_maps_link_url().
+ *
+ * Legacy `output=embed` Google URLs often show “Place info couldn’t load”; use Embed API view
+ * mode when `LUBBEN_GOOGLE_MAPS_EMBED_API_KEY` is defined in wp-config.php, otherwise OSM.
  *
  * @return string
  */
 function lubben_vet_maps_embed_url() {
-	$query = lubben_vet_format_address_line();
+	$lat  = '40.9878424';
+	$lng  = '-96.1641287';
+	$zoom = '17';
 
-	return 'https://maps.google.com/maps?q=' . rawurlencode( $query ) . '&z=14&output=embed&ie=UTF8';
+	if ( defined( 'LUBBEN_GOOGLE_MAPS_EMBED_API_KEY' ) && LUBBEN_GOOGLE_MAPS_EMBED_API_KEY ) {
+		return add_query_arg(
+			array(
+				'key'    => LUBBEN_GOOGLE_MAPS_EMBED_API_KEY,
+				'center' => $lat . ',' . $lng,
+				'zoom'   => $zoom,
+			),
+			'https://www.google.com/maps/embed/v1/view'
+		);
+	}
+
+	// ~500 m around the clinic (min_lon,min_lat,max_lon,max_lat); marker is lat,lon per OSM embed.
+	$bbox = '-96.1665,40.9863,-96.1617,40.9894';
+
+	return 'https://www.openstreetmap.org/export/embed.html?bbox=' . rawurlencode( $bbox ) . '&layer=mapnik&marker=' . rawurlencode( $lat . ',' . $lng );
 }
 
 /**
