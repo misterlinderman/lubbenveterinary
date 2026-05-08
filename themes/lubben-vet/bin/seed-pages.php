@@ -136,6 +136,30 @@ function lubben_vet_seed_menu_has_url( $menu_id, $url ) {
 }
 
 /**
+ * Remove custom links to the online pharmacy from a menu (IA: primary is Home, About, Contact only).
+ *
+ * @param int    $menu_id Menu term ID.
+ * @param string $pharmacy_url Pharmacy URL.
+ * @return void
+ */
+function lubben_vet_seed_strip_pharmacy_links( $menu_id, $pharmacy_url ) {
+	$items = wp_get_nav_menu_items( $menu_id );
+	if ( ! is_array( $items ) ) {
+		return;
+	}
+	$base = untrailingslashit( $pharmacy_url );
+	foreach ( $items as $item ) {
+		if ( 'custom' !== $item->type || empty( $item->url ) ) {
+			continue;
+		}
+		$url = untrailingslashit( (string) $item->url );
+		if ( $url === $base || str_starts_with( (string) $item->url, $base ) ) {
+			wp_delete_post( (int) $item->ID, true );
+		}
+	}
+}
+
+/**
  * Determine whether a menu item already references a page.
  *
  * @param int $menu_id Menu ID.
@@ -196,18 +220,9 @@ if ( $primary_id ) {
 			)
 		);
 	}
-	if ( ! lubben_vet_seed_menu_has_url( $primary_id, $pharmacy ) ) {
-		wp_update_nav_menu_item(
-			$primary_id,
-			0,
-			array(
-				'menu-item-title'  => __( 'Online Pharmacy', 'lubben-vet' ),
-				'menu-item-url'    => $pharmacy,
-				'menu-item-status' => 'publish',
-				'menu-item-type'   => 'custom',
-			)
-		);
-	}
+
+	// docs/01-information-architecture.md: Online Pharmacy is footer nav only, not primary.
+	lubben_vet_seed_strip_pharmacy_links( $primary_id, $pharmacy );
 
 	$locations = get_theme_mod( 'nav_menu_locations', array() );
 	if ( ! is_array( $locations ) ) {

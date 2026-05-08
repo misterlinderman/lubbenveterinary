@@ -8,7 +8,6 @@
 defined( 'ABSPATH' ) || exit;
 
 $appointment_url = home_url( '/contact/#appointment-form' );
-$pharmacy_url    = 'https://lubbenveterinary.myvetstoreonline.pharmacy';
 ?>
 <div class="site-nav__backdrop" id="site-nav-backdrop" hidden></div>
 <header class="site-header" role="banner">
@@ -54,8 +53,5 @@ $pharmacy_url    = 'https://lubbenveterinary.myvetstoreonline.pharmacy';
 			)
 		);
 		?>
-		<p class="site-nav__mobile-meta">
-			<a href="<?php echo esc_url( $pharmacy_url ); ?>" rel="noopener noreferrer" target="_blank"><?php esc_html_e( 'Online Pharmacy', 'lubben-vet' ); ?></a>
-		</p>
 	</div>
 </header>

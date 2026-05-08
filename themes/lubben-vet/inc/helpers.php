@@ -73,10 +73,11 @@ function lubben_vet_maps_embed_url() {
  * @return array<string, string>
  */
 function get_lubben_hours() {
+	// Wording matches docs/01-information-architecture.md §Contact (launch copy).
 	$data = array(
-		__( 'Monday – Friday', 'lubben-vet' ) => __( '7:00 a.m. – 6:00 p.m.', 'lubben-vet' ),
-		__( 'Saturday', 'lubben-vet' )        => __( '8:00 a.m. – 12:00 p.m.', 'lubben-vet' ),
-		__( 'Sunday', 'lubben-vet' )            => __( 'Closed', 'lubben-vet' ),
+		__( 'Monday – Friday', 'lubben-vet' ) => __( '7am – 6pm', 'lubben-vet' ),
+		__( 'Saturday', 'lubben-vet' )        => __( '8am – 12pm', 'lubben-vet' ),
+		__( 'Sunday', 'lubben-vet' )           => __( 'Closed', 'lubben-vet' ),
 	);
 
 	return apply_filters( 'lubben_vet_hours', $data );
@@ -88,7 +89,7 @@ function get_lubben_hours() {
  * @return string
  */
 function lubben_vet_after_hours_note() {
-	$text = __( 'After-hours emergencies: call the office at any time — this line reaches Dr. Lubben directly.', 'lubben-vet' );
+	$text = __( 'After-hours emergencies: call 402-234-1054 — the office line routes to Dr. Lubben.', 'lubben-vet' );
 
 	return apply_filters( 'lubben_vet_after_hours_note', $text );
 }

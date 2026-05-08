@@ -17,6 +17,7 @@ get_header();
 		?>
 		<header class="page__header">
 			<h1 class="page__title"><?php the_title(); ?></h1>
+			<p class="page__tagline"><?php esc_html_e( 'Our practice, our doctor, and the people who make your visit welcoming.', 'lubben-vet' ); ?></p>
 		</header>
 		<div class="page__content">
 			<?php the_content(); ?>
@@ -29,7 +30,7 @@ get_header();
 		<section class="about-section" id="practice">
 			<h2><?php esc_html_e( 'Our Practice', 'lubben-vet' ); ?></h2>
 			<p>
-				<?php esc_html_e( 'Lubben Veterinary Services LLC was formed in 2016. Dr. Scott Lubben is the owner and sole veterinarian in the practice. Dr. Lubben has served Cass County and the surrounding region for decades. Previously working in a mixed animal practice in the Plattsmouth area, he has fulfilled the needs of our area with his farm and home mobile practice.', 'lubben-vet' ); ?>
+				<?php esc_html_e( 'Lubben Veterinary Services LLC was formed in 2016. Dr. Scott Lubben is the owner and sole veterinarian in the practice. Dr. Lubben has served the Cass County area for many years. Previously working in a mixed animal practice in the Plattsmouth area, he has fulfilled the needs of our area with his farm and home mobile practice.', 'lubben-vet' ); ?>
 			</p>
 			<p>
 				<?php esc_html_e( 'With the addition of the new facilities in Louisville, he has expanded his practice to include small animal surgeries and advanced medicine. He is able to handle many of your animal care needs, including urgent situations after hours. For animal emergencies, call the office number 402-234-1054 and you will be instructed on how to reach Dr. Lubben.', 'lubben-vet' ); ?>
@@ -47,6 +48,9 @@ get_header();
 			<p>
 				<?php esc_html_e( 'As a native of southeast Nebraska, he understands the needs and concerns of large animal and pet owners alike. Dr. Lubben grew up on a farm in southeast Nebraska. He earned his DVM from Kansas State University in May of 1990. Dr. Lubben and his wife Karen were married in 1986 and have three children: Angie (EJ) Buglewicz, Matt (Lauren), and Jeremiah.', 'lubben-vet' ); ?>
 			</p>
+			<blockquote class="about-pullquote" cite="<?php echo esc_url( home_url( '/' ) ); ?>">
+				<p><?php esc_html_e( 'Providing quality veterinary care to all of God\'s creatures great and small.', 'lubben-vet' ); ?></p>
+			</blockquote>
 		</section>
 
 		<section class="about-section" id="our-staff">
@@ -78,8 +82,8 @@ get_header();
 		</section>
 
 		<section class="about-section">
-			<h2><?php esc_html_e( 'Have questions?', 'lubben-vet' ); ?></h2>
-			<p><a class="btn btn--primary" href="<?php echo esc_url( home_url( '/contact/#appointment-form' ) ); ?>"><?php esc_html_e( 'Get in touch', 'lubben-vet' ); ?></a></p>
+			<h2><?php esc_html_e( 'Have questions? Get in touch.', 'lubben-vet' ); ?></h2>
+			<p><a class="btn btn--primary" href="<?php echo esc_url( home_url( '/contact/#appointment-form' ) ); ?>"><?php esc_html_e( 'Contact / appointment form', 'lubben-vet' ); ?></a></p>
 		</section>
 	</div>
 </article>
