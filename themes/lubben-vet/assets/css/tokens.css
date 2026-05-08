@@ -42,6 +42,8 @@
   --color-primary: #2f5d3a;
   --color-primary-hover: #244a2d;
   --color-accent: #c97b3f;
+  /* Accent wash for notices (forms); derived from accent + surface — no extra hex. */
+  --color-accent-surface: color-mix(in srgb, var(--color-accent) 14%, var(--color-surface));
   --color-border: #e4ddd0;
   --color-focus: #2f5d3a;
 

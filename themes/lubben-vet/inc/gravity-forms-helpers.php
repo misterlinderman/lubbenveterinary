@@ -2,6 +2,15 @@
 /**
  * Gravity Forms — theme integration (styling hooks; form lives in admin + JSON export).
  *
+ * Hooks register only when Gravity Forms is active (`GFForms`). `lubben_vet_render_contact_form()`
+ * still runs without the plugin and shows a short fallback message.
+ *
+ * Part B — WP admin (manual): install/activate Gravity Forms → import
+ * `inc/gravity-forms/contact-form.json` (or run `wp eval-file` on `bin/install-gf-contact-form.php`) →
+ * confirm notifications, confirmations, honeypot, retention 365d, SMTP (WP Mail SMTP) → test each
+ * “What’s this about?” path → re-export form JSON from Forms → Import/Export → replace repo JSON → commit.
+ * Verify GF theme CSS is off: wrapper should not use `.gform-theme--orbital`; our `theme.css` block styles the form.
+ *
  * @package Lubben_Vet
  * @since   0.1.0
  */
