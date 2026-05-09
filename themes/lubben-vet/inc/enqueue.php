@@ -29,6 +29,26 @@ function lubben_vet_enqueue_assets() {
 			true
 		);
 	}
+
+	$logo_preview_path = get_theme_file_path( 'assets/js/logo-preview.js' );
+	if ( defined( 'LUBBEN_VET_CLIENT_LOGO_PREVIEW' ) && LUBBEN_VET_CLIENT_LOGO_PREVIEW && file_exists( $logo_preview_path ) ) {
+		wp_enqueue_script(
+			'lubben-vet-logo-preview',
+			get_theme_file_uri( 'assets/js/logo-preview.js' ),
+			array(),
+			LUBBEN_VET_VERSION,
+			true
+		);
+		wp_localize_script(
+			'lubben-vet-logo-preview',
+			'lubbenVetLogoPreviewL10n',
+			array(
+				'stateA' => __( 'Logo: Mark', 'lubben-vet' ),
+				'stateB' => __( 'Logo: Wordmark / lockup', 'lubben-vet' ),
+				'title'  => __( 'Switch logo options (client preview)', 'lubben-vet' ),
+			)
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'lubben_vet_enqueue_assets' );
 

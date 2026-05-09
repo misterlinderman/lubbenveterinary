@@ -648,8 +648,8 @@ body.site-nav-open {
 .site-footer__brand img {
   display: block;
   width: auto;
-  height: clamp(3.5rem, 2.75rem + 2vw, 4.5rem);
-  max-width: min(100%, 320px);
+  height: clamp(8.5rem, 2.75rem + 2vw, 8.5rem);
+  max-width: min(100%, 400px);
 }
 
 .site-footer__title {
@@ -1304,4 +1304,39 @@ body.site-nav-open {
   font-weight: 600;
   font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
   line-height: var(--lh-body);
+}
+
+/* Temporary — client logo preview toggle (remove with LUBBEN_VET_CLIENT_LOGO_PREVIEW). */
+.lubben-vet-logo-preview-toggle {
+  position: fixed;
+  right: max(var(--space-4), env(safe-area-inset-right, 0px));
+  bottom: max(var(--space-4), env(safe-area-inset-bottom, 0px));
+  z-index: 100002;
+  max-width: min(100vw - var(--space-8), 17rem);
+  padding: var(--space-3) var(--space-4);
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: var(--color-text);
+  background: rgb(255 255 255 / 94%);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  box-shadow: 0 4px 20px rgb(41 42 118 / 12%);
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.lubben-vet-logo-preview-toggle:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+  color: var(--color-primary);
+}
+
+.lubben-vet-logo-preview-toggle:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
 }

@@ -17,9 +17,12 @@ $appointment_url = home_url( '/contact/#appointment-form' );
 	<div class="site-header__inner">
 		<div class="site-header__brand">
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<img src="<?php echo esc_url( lubben_vet_logo_url( 'on-primary' ) ); ?>" alt="" width="300" height="133" class="site-header__logo" decoding="async" />
+				<img src="<?php echo esc_url( lubben_vet_header_logo_src() ); ?>" alt="" width="300" height="133" class="site-header__logo" decoding="async" />
 				<span class="screen-reader-text"><?php bloginfo( 'name' ); ?></span>
 			</a>
+			<?php if ( defined( 'LUBBEN_VET_CLIENT_LOGO_PREVIEW' ) && LUBBEN_VET_CLIENT_LOGO_PREVIEW ) : ?>
+			<script>window.lubbenVetLogoPreviewApply&&window.lubbenVetLogoPreviewApply('header');</script>
+			<?php endif; ?>
 		</div>
 
 		<nav class="site-nav" role="navigation" aria-label="<?php esc_attr_e( 'Primary', 'lubben-vet' ); ?>">

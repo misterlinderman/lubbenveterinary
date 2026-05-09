@@ -204,3 +204,82 @@ function lubben_vet_logo_url( $variant = 'default' ) {
 
 	return get_template_directory_uri() . '/assets/images/' . $file;
 }
+
+/**
+ * Client logo preview: State A — mark (2026-2) in header and footer.
+ * State B — wordmark (words-1) in header, full lockup (1d) in footer.
+ *
+ * @return array{a: array{header: string, footer: string}, b: array{header: string, footer: string}}
+ */
+function lubben_vet_client_logo_preview_map() {
+	static $map = null;
+
+	if ( $map !== null ) {
+		return $map;
+	}
+
+	$base = get_template_directory_uri() . '/assets/images/';
+	$map  = array(
+		'a' => array(
+			'header' => $base . 'lubben-vet-logo-2026-2.svg',
+			'footer' => $base . 'lubben-vet-logo-2026-2.svg',
+		),
+		'b' => array(
+			'header' => $base . 'lubben-vet-logo-2026-words-1.svg',
+			'footer' => $base . 'lubben-vet-logo-2026-1d.svg',
+		),
+	);
+
+	return $map;
+}
+
+/**
+ * Logo img `src` for header (respects client preview when enabled).
+ *
+ * @return string
+ */
+function lubben_vet_header_logo_src() {
+	if ( defined( 'LUBBEN_VET_CLIENT_LOGO_PREVIEW' ) && LUBBEN_VET_CLIENT_LOGO_PREVIEW ) {
+		return lubben_vet_client_logo_preview_map()['a']['header'];
+	}
+
+	return lubben_vet_logo_url( 'on-primary' );
+}
+
+/**
+ * Logo img `src` for footer (respects client preview when enabled).
+ *
+ * @return string
+ */
+function lubben_vet_footer_logo_src() {
+	if ( defined( 'LUBBEN_VET_CLIENT_LOGO_PREVIEW' ) && LUBBEN_VET_CLIENT_LOGO_PREVIEW ) {
+		return lubben_vet_client_logo_preview_map()['a']['footer'];
+	}
+
+	return lubben_vet_logo_url( 'footer' );
+}
+
+/**
+ * Early inline script: apply saved preview state before paint (avoids flash when possible).
+ */
+function lubben_vet_print_client_logo_preview_head() {
+	if ( ! defined( 'LUBBEN_VET_CLIENT_LOGO_PREVIEW' ) || ! LUBBEN_VET_CLIENT_LOGO_PREVIEW ) {
+		return;
+	}
+
+	$map = lubben_vet_client_logo_preview_map();
+	?>
+	<script>
+	window.lubbenVetLogoPreview=<?php echo wp_json_encode( $map ); ?>;
+	window.lubbenVetLogoPreviewApply=function(s){
+		var c=window.lubbenVetLogoPreview;if(!c)return;
+		try{
+			if(localStorage.getItem('lubbenVetLogoPreview')!=='b')return;
+			var el=document.querySelector(s==='header'?'.site-header__logo':'.site-footer__logo');
+			if(el)el.src=c.b[s];
+		}catch(e){}
+	};
+	</script>
+	<?php
+}
+add_action( 'wp_head', 'lubben_vet_print_client_logo_preview_head', 2 );
