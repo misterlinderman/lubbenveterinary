@@ -4,6 +4,37 @@ defined( 'ABSPATH' ) || exit;
 
 $appointment_url = home_url( '/contact/#appointment-form' );
 $hero_id         = absint( get_theme_mod( 'lubben_vet_hero_image', 0 ) );
+
+$hero_title             = trim( (string) get_theme_mod( 'lubben_vet_hero_title', '' ) );
+$hero_subtitle          = trim( (string) get_theme_mod( 'lubben_vet_hero_subtitle', '' ) );
+$hero_primary_label     = trim( (string) get_theme_mod( 'lubben_vet_hero_primary_label', '' ) );
+$hero_primary_url       = trim( (string) get_theme_mod( 'lubben_vet_hero_primary_url', '' ) );
+$hero_secondary_label   = trim( (string) get_theme_mod( 'lubben_vet_hero_secondary_label', '' ) );
+$hero_secondary_url_raw = trim( (string) get_theme_mod( 'lubben_vet_hero_secondary_url', '' ) );
+
+if ( '' === $hero_title ) {
+	$hero_title = __( 'Caring for the animals of southeast Nebraska.', 'lubben-vet' );
+}
+if ( '' === $hero_subtitle ) {
+	$hero_subtitle = __( 'Providing quality veterinary care to all of God\'s creatures great and small.', 'lubben-vet' );
+}
+if ( '' === $hero_primary_label ) {
+	$hero_primary_label = __( 'Request an Appointment', 'lubben-vet' );
+}
+
+$hero_primary_url = $hero_primary_url ? esc_url_raw( $hero_primary_url ) : '';
+if ( '' === $hero_primary_url ) {
+	$hero_primary_url = $appointment_url;
+}
+
+if ( '' === $hero_secondary_label ) {
+	$hero_secondary_label = sprintf( __( 'Call %s', 'lubben-vet' ), get_lubben_phone() );
+}
+
+$hero_secondary_url = $hero_secondary_url_raw ? esc_url_raw( $hero_secondary_url_raw ) : '';
+if ( '' === $hero_secondary_url ) {
+	$hero_secondary_url = get_lubben_phone_tel();
+}
 ?>
 <section class="hero" aria-label="<?php esc_attr_e( 'Welcome', 'lubben-vet' ); ?>">
 	<div class="hero__media">
@@ -62,11 +93,11 @@ $hero_id         = absint( get_theme_mod( 'lubben_vet_hero_image', 0 ) );
 		?>
 	</div>
 	<div class="hero__inner">
-		<h1 class="hero__title"><?php esc_html_e( 'Caring for the animals of southeast Nebraska.', 'lubben-vet' ); ?></h1>
-		<p class="hero__subtitle"><?php esc_html_e( 'Providing quality veterinary care to all of God\'s creatures great and small.', 'lubben-vet' ); ?></p>
+		<h1 class="hero__title"><?php echo esc_html( $hero_title ); ?></h1>
+		<p class="hero__subtitle"><?php echo esc_html( $hero_subtitle ); ?></p>
 		<div class="hero__actions">
-			<a class="btn btn--primary" href="<?php echo esc_url( $appointment_url ); ?>"><?php esc_html_e( 'Request an Appointment', 'lubben-vet' ); ?></a>
-			<a class="btn btn--secondary" href="<?php echo esc_url( get_lubben_phone_tel() ); ?>"><?php echo esc_html( sprintf( __( 'Call %s', 'lubben-vet' ), get_lubben_phone() ) ); ?></a>
+			<a class="btn btn--primary" href="<?php echo esc_url( $hero_primary_url ); ?>"><?php echo esc_html( $hero_primary_label ); ?></a>
+			<a class="btn btn--secondary" href="<?php echo esc_url( $hero_secondary_url ); ?>"><?php echo esc_html( $hero_secondary_label ); ?></a>
 		</div>
 	</div>
 </section>

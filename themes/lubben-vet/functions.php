@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'LUBBEN_VET_VERSION' ) ) {
-	define( 'LUBBEN_VET_VERSION', '0.1.0' );
+	define( 'LUBBEN_VET_VERSION', '0.1.4' );
 }
 
 if ( ! defined( 'LUBBEN_VET_DIR' ) ) {

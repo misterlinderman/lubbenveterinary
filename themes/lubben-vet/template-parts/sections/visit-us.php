@@ -6,11 +6,16 @@ $appointment_url = home_url( '/contact/#appointment-form' );
 $address_line    = lubben_vet_format_address_line();
 $hours           = get_lubben_hours();
 $embed           = lubben_vet_maps_embed_url();
+
+$visit_heading = trim( (string) get_theme_mod( 'lubben_vet_visit_heading', '' ) );
+if ( '' === $visit_heading ) {
+	$visit_heading = __( 'Visit us', 'lubben-vet' );
+}
 ?>
 <section class="section-visit-us">
 	<div class="container visit-us">
 		<div>
-			<h2><?php esc_html_e( 'Visit us', 'lubben-vet' ); ?></h2>
+			<h2><?php echo esc_html( $visit_heading ); ?></h2>
 			<p><a href="<?php echo esc_url( lubben_vet_maps_link_url() ); ?>"><?php echo esc_html( $address_line ); ?></a></p>
 			<ul class="visit-us__hours-list">
 				<?php foreach ( $hours as $label => $value ) : ?>

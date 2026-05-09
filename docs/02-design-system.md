@@ -79,7 +79,7 @@ One scale, used everywhere. Multiples of 4px.
 
 ## Logos
 
-SVGs in `themes/lubben-vet/assets/images/`: **version 1** (`lubben-vet-logo-2026-1.svg`) includes the primary color field — use on light backgrounds (header, footer). **Version 1b** (`lubben-vet-logo-2026-1b.svg`) is transparent artwork for placing on primary-colored bands (e.g. pharmacy CTA).
+SVGs in `themes/lubben-vet/assets/images/`: **1b** (`lubben-vet-logo-2026-1b.svg`) — light artwork on the primary header (and any primary-colored field). **1c** (`lubben-vet-logo-2026-1c.svg`) — full-color mark on white (footer). **1** (`lubben-vet-logo-2026-1.svg`) — optional field mark on light UI elsewhere. The home pharmacy CTA band is text + button only (no logo).
 
 ## Components
 

@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 ?>
-<!-- front-page: theme-driven sections; editable intro can be added later via a child page if needed. -->
+<!-- front-page: theme sections; copy and images from Appearance → Customize → Lubben Vet content. -->
 <?php
 get_template_part( 'template-parts/sections/hero' );
 get_template_part( 'template-parts/sections/about-teaser' );

@@ -5,6 +5,7 @@
   var toggle = document.getElementById('site-nav-toggle');
   var panel = document.getElementById('primary-menu-panel');
   var backdrop = document.getElementById('site-nav-backdrop');
+  var closeBtn = document.getElementById('site-nav-close');
 
   if (!toggle || !panel || !backdrop) {
     return;
@@ -22,9 +23,10 @@
     document.body.classList.add('site-nav-open');
     toggle.setAttribute('aria-expanded', 'true');
 
-    var first = focusableSelectors()[0];
-    if (first) {
-      first.focus();
+    var focusables = focusableSelectors();
+    var preferred = closeBtn ? closeBtn : focusables[0];
+    if (preferred) {
+      preferred.focus();
     }
   }
 
@@ -36,6 +38,10 @@
     document.body.classList.remove('site-nav-open');
     toggle.setAttribute('aria-expanded', 'false');
     toggle.focus();
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeMenu);
   }
 
   toggle.addEventListener('click', function () {

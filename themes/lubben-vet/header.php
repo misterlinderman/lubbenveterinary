@@ -17,5 +17,6 @@ defined( 'ABSPATH' ) || exit;
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <?php get_template_part( 'template-parts/layout/skip-link' ); ?>
+<?php get_template_part( 'template-parts/layout/site-marquee' ); ?>
 <?php get_template_part( 'template-parts/layout/site-header' ); ?>
 <main id="main" class="site-main">

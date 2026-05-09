@@ -183,14 +183,24 @@ function lubben_vet_staff_initials( $name ) {
 }
 
 /**
- * URL for a bundled SVG logo. Use `default` on light backgrounds (mark includes primary field).
- * Use `on-primary` on primary-colored bands (transparent artwork).
+ * URL for a bundled SVG logo.
  *
- * @param string $variant `default`|`on-primary`.
+ * @param string $variant `default` field mark on light UI; `on-primary` light artwork on primary;
+ *                        `footer` full-color mark on white (1c).
  * @return string
  */
 function lubben_vet_logo_url( $variant = 'default' ) {
-	$file = ( 'on-primary' === $variant ) ? 'lubben-vet-logo-2026-1b.svg' : 'lubben-vet-logo-2026-1.svg';
+	switch ( $variant ) {
+		case 'on-primary':
+			$file = 'lubben-vet-logo-2026-1b.svg';
+			break;
+		case 'footer':
+			$file = 'lubben-vet-logo-2026-1c.svg';
+			break;
+		default:
+			$file = 'lubben-vet-logo-2026-1.svg';
+			break;
+	}
 
 	return get_template_directory_uri() . '/assets/images/' . $file;
 }

@@ -17,7 +17,13 @@ get_header();
 		?>
 		<header class="page__header">
 			<h1 class="page__title"><?php the_title(); ?></h1>
-			<p class="page__tagline"><?php esc_html_e( 'Hours, directions, and how to reach us.', 'lubben-vet' ); ?></p>
+			<?php
+			$c_tagline = trim( (string) get_theme_mod( 'lubben_vet_contact_page_tagline', '' ) );
+			if ( '' === $c_tagline ) {
+				$c_tagline = __( 'Hours, directions, and how to reach us.', 'lubben-vet' );
+			}
+			?>
+			<p class="page__tagline"><?php echo esc_html( $c_tagline ); ?></p>
 		</header>
 		<div class="page__content">
 			<?php the_content(); ?>

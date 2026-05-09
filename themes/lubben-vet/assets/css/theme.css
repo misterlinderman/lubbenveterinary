@@ -248,16 +248,47 @@ select:focus-visible {
 }
 
 /* ============================
+   Announcement banner (home)
+   ============================ */
+
+.site-marquee {
+  background-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-primary));
+  color: var(--color-surface);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+.site-marquee__inner {
+  padding-block: var(--space-2);
+  text-align: center;
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+
+.site-marquee__text {
+  margin: 0;
+}
+
+.site-marquee__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-marquee__link:hover {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* ============================
    Site header
    ============================ */
 
 .site-header {
   position: sticky;
-  top: 0;
-  z-index: 1000;
-  background-color: color-mix(in srgb, var(--color-bg) 94%, transparent);
-  border-bottom: 1px solid var(--color-border);
-  backdrop-filter: blur(8px);
+  /* Sit below WP admin toolbar when logged in (matches drawer / backdrop inset). */
+  top: var(--wp-admin--admin-bar--height, 0px);
+  z-index: 1003;
+  background-color: var(--color-primary);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-primary-hover) 65%, var(--color-surface));
 }
 
 .site-header__inner {
@@ -269,6 +300,7 @@ select:focus-visible {
   max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: var(--space-5);
+  min-width: 0;
 }
 
 @media (min-width: 1024px) {
@@ -278,8 +310,19 @@ select:focus-visible {
 }
 
 .site-header__brand {
-  flex-shrink: 0;
+  flex: 0 1 auto;
+  min-width: 0;
   line-height: 0;
+}
+
+@media (max-width: 1023.98px) {
+  .site-header__brand {
+    flex: 1 1 0;
+  }
+
+  .site-header__inner {
+    gap: var(--space-2);
+  }
 }
 
 .site-header__brand a {
@@ -293,20 +336,47 @@ select:focus-visible {
 
 .site-header__brand img {
   display: block;
-  height: 2.75rem;
+  height: clamp(3.25rem, 2.5rem + 2.5vw, 4.125rem);
   width: auto;
-  max-width: min(52vw, 220px);
+  max-width: min(100%, 320px);
 }
 
 .site-header__actions {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  flex-shrink: 0;
 }
 
 .site-header__tel {
   font-weight: 600;
   white-space: nowrap;
+  color: var(--color-surface);
+}
+
+.site-header__tel:hover {
+  color: rgb(255 255 255 / 88%);
+}
+
+.site-header a:focus-visible {
+  outline: 3px solid var(--color-surface);
+  outline-offset: 2px;
+}
+
+.site-header .site-header__cta.btn--primary {
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border-color: var(--color-surface);
+}
+
+.site-header .site-header__cta.btn--primary:focus-visible {
+  outline-color: var(--color-primary);
+}
+
+.site-header .site-header__cta.btn--primary:hover {
+  background: color-mix(in srgb, var(--color-surface) 90%, var(--color-primary));
+  border-color: color-mix(in srgb, var(--color-surface) 90%, var(--color-primary));
+  color: var(--color-primary-hover);
 }
 
 @media (min-width: 1024px) {
@@ -315,12 +385,13 @@ select:focus-visible {
   }
 }
 
-.site-header__cta {
+/* Appointment CTA is desktop-only — extra specificity beats plugin/global `.btn` display rules on small screens. */
+.site-header .site-header__inner .site-header__actions > a.site-header__cta.btn {
   display: none;
 }
 
 @media (min-width: 1024px) {
-  .site-header__cta {
+  .site-header .site-header__inner .site-header__actions > a.site-header__cta.btn {
     display: inline-flex;
   }
 }
@@ -332,11 +403,16 @@ select:focus-visible {
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgb(255 255 255 / 42%);
   border-radius: 6px;
-  background: var(--color-surface);
-  color: var(--color-text);
+  background: rgb(255 255 255 / 10%);
+  color: var(--color-surface);
   cursor: pointer;
+}
+
+.site-header__menu-toggle:hover {
+  background: rgb(255 255 255 / 18%);
+  border-color: rgb(255 255 255 / 55%);
 }
 
 .site-header__menu-toggle-icon {
@@ -372,25 +448,108 @@ select:focus-visible {
 
   .site-nav__list a {
     font-weight: 600;
-    color: var(--color-text);
+    color: var(--color-surface);
+    text-decoration: none;
   }
 
   .site-nav__list a:hover {
-    color: var(--color-primary);
+    color: rgb(255 255 255 / 88%);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 }
 
 .site-nav__panel {
   position: fixed;
-  inset: 0 0 0 auto;
-  width: min(100%, 22rem);
+  top: var(--wp-admin--admin-bar--height, 0px);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-width: none;
   background: var(--color-surface);
-  border-left: 1px solid var(--color-border);
-  padding: var(--space-6) var(--space-5);
+  padding: var(--space-4) var(--space-5) var(--space-6);
   transform: translateX(100%);
   transition: transform 180ms ease;
-  z-index: 1002;
+  z-index: 1004;
   overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.site-nav__panel-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: var(--space-5);
+}
+
+.site-nav__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) 0 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-card, 6px);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.site-nav__close:hover {
+  background: color-mix(in srgb, var(--color-text) 8%, transparent);
+  color: var(--color-primary);
+}
+
+.site-nav__close:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+/* “X” built from two bars so it stays crisp at any DPR */
+.site-nav__close-x {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+.site-nav__close-x::before,
+.site-nav__close-x::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22px;
+  height: 2px;
+  background: currentcolor;
+  border-radius: 1px;
+}
+
+.site-nav__close-x::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.site-nav__close-x::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.site-nav__panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  width: 100%;
+}
+
+.site-nav__panel-cta {
+  align-self: stretch;
+  text-align: center;
+  justify-content: center;
 }
 
 .site-nav__panel.is-open {
@@ -399,7 +558,7 @@ select:focus-visible {
 
 .site-nav__backdrop {
   position: fixed;
-  inset: 0;
+  inset: var(--wp-admin--admin-bar--height, 0px) 0 0 0;
   background: rgb(0 0 0 / 35%);
   opacity: 0;
   pointer-events: none;
@@ -420,16 +579,37 @@ select:focus-visible {
 }
 
 .site-nav__mobile-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-  margin-top: var(--space-6);
+  gap: var(--space-5);
+}
+
+.site-nav__mobile-list li {
+  margin: 0;
+  padding: 0;
 }
 
 .site-nav__mobile-list a {
+  display: block;
+  padding-block: var(--space-3);
   font-weight: 600;
   color: var(--color-text);
   font-size: 1.0625rem;
+  text-decoration: none;
+  border-radius: var(--radius-card, 6px);
+}
+
+.site-nav__mobile-list a:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.site-nav__mobile-list a:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
 }
 
 body.site-nav-open {
@@ -468,8 +648,8 @@ body.site-nav-open {
 .site-footer__brand img {
   display: block;
   width: auto;
-  height: 3rem;
-  max-width: 200px;
+  height: clamp(3.5rem, 2.75rem + 2vw, 4.5rem);
+  max-width: min(100%, 320px);
 }
 
 .site-footer__title {
@@ -499,7 +679,8 @@ body.site-nav-open {
    Page shell
    ============================ */
 
-.page {
+/* Scope to main: WordPress adds `.page` to body for Page post types; an unscoped `.page` would pad the whole document. */
+.site-main .page {
   padding-block: var(--space-7);
 }
 
@@ -643,6 +824,17 @@ body.site-nav-open {
   background: linear-gradient(160deg, color-mix(in srgb, var(--color-text) 8%, var(--color-bg)), color-mix(in srgb, var(--color-primary) 12%, var(--color-bg)));
 }
 
+.about-teaser__media:not(.about-teaser__placeholder) {
+  aspect-ratio: 4 / 5;
+}
+
+.about-teaser__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* ============================
    Homepage — Services grid
    ============================ */
@@ -684,20 +876,6 @@ body.site-nav-open {
   height: 100%;
 }
 
-.service-card__icon {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  color: var(--color-primary);
-  margin-bottom: var(--space-3);
-}
-
-.service-card__icon svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
 .service-card__title {
   font-size: var(--fs-h3);
   margin-bottom: var(--space-2);
@@ -728,30 +906,18 @@ body.site-nav-open {
   align-items: flex-start;
 }
 
-.pharmacy-cta__logo {
-  display: block;
-  width: auto;
-  height: 3.25rem;
-  max-width: min(85vw, 280px);
-  flex-shrink: 0;
-}
-
 @media (min-width: 768px) {
   .pharmacy-cta {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
-
-  .pharmacy-cta__logo {
-    height: 3.5rem;
-  }
 }
 
 .pharmacy-cta__text {
   max-width: 44rem;
   flex: 1;
-  min-width: min(100%, 16rem);
+  min-width: 0;
 }
 
 .pharmacy-cta .pharmacy-cta__title {

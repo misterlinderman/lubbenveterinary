@@ -44,7 +44,7 @@ Sections, top to bottom:
 1. **Header / nav** — logo or wordmark, primary nav (About, Contact), prominent phone link, "Request an Appointment" button (anchors to contact form).
 2. **Hero** — short headline, mission line, two buttons: *Request an Appointment* (→ `/contact/#appointment-form`) and *Call 402-234-1054* (`tel:` link). Single warm hero image.
 3. **About teaser** — 2–3 sentences pulled from the About page intro, with a "Meet Dr. Lubben" link.
-4. **Services overview** — 4 tiles: Small Animal Care, Large Animal & Mobile Service, Surgery & Advanced Medicine, After-Hours Emergencies. Each tile: icon, one-line description.
+4. **Services overview** — 4 tiles: Small Animal Care, Large Animal & Mobile Service, Surgery & Advanced Medicine, After-Hours Emergencies. Each tile: headline and one-line description.
 5. **Online pharmacy CTA** — full-width band promoting "Shop Our Online Pharmacy" → `https://lubbenveterinary.myvetstoreonline.pharmacy` (opens in new tab, `rel="noopener"`).
 6. **Visit us** — address, hours summary, embedded map (lazy-loaded), CTA back to contact form.
 7. **Footer** — address, phone, hours, mission line, copyright.
