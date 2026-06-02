@@ -7,7 +7,7 @@ $address_line    = lubben_vet_format_address_line();
 $hours           = get_lubben_hours();
 $embed           = lubben_vet_maps_embed_url();
 
-$visit_heading = trim( (string) get_theme_mod( 'lubben_vet_visit_heading', '' ) );
+$visit_heading = trim( lubben_vet_get_page_field( 'lubben_vet_visit_heading' ) );
 if ( '' === $visit_heading ) {
 	$visit_heading = __( 'Visit us', 'lubben-vet' );
 }
@@ -22,7 +22,7 @@ if ( '' === $visit_heading ) {
 					<li><strong><?php echo esc_html( $label ); ?>:</strong> <?php echo esc_html( $value ); ?></li>
 				<?php endforeach; ?>
 			</ul>
-			<p><?php echo esc_html( lubben_vet_after_hours_note() ); ?></p>
+			<?php lubben_vet_render_after_hours_emergency(); ?>
 			<p><a class="btn btn--primary" href="<?php echo esc_url( $appointment_url ); ?>"><?php esc_html_e( 'Request an Appointment', 'lubben-vet' ); ?></a></p>
 		</div>
 		<div class="visit-us__map">

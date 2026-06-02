@@ -2,18 +2,18 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-$title_raw = trim( (string) get_theme_mod( 'lubben_vet_pharmacy_title', '' ) );
-$body_raw  = trim( (string) get_theme_mod( 'lubben_vet_pharmacy_body', '' ) );
-$btn_raw   = trim( (string) get_theme_mod( 'lubben_vet_pharmacy_button', '' ) );
-$url_raw   = trim( (string) get_theme_mod( 'lubben_vet_pharmacy_url', '' ) );
+$title_raw = trim( lubben_vet_get_page_field( 'lubben_vet_pharmacy_title' ) );
+$body_raw  = trim( lubben_vet_get_page_field( 'lubben_vet_pharmacy_body' ) );
+$btn_raw   = trim( lubben_vet_get_page_field( 'lubben_vet_pharmacy_button' ) );
+$url_raw   = trim( lubben_vet_get_page_field( 'lubben_vet_pharmacy_url' ) );
 
 $title = '' !== $title_raw ? $title_raw : __( 'Shop Our Online Pharmacy', 'lubben-vet' );
 $body  = '' !== $body_raw
 	? $body_raw
-	: __( 'Order food, prescriptions, and trusted supplies for your animals. Home delivery is available through our online pharmacy partner.', 'lubben-vet' );
+	: __( 'Support your local veterinary clinics by shopping through our online pharmacy partners. Order food, prescriptions, and trusted supplies with convenient home delivery.', 'lubben-vet' );
 $btn   = '' !== $btn_raw ? $btn_raw : __( 'Open pharmacy', 'lubben-vet' );
 
-$pharmacy_url = '' !== $url_raw ? esc_url_raw( $url_raw ) : 'https://lubbenveterinary.myvetstoreonline.pharmacy';
+$pharmacy_url = '' !== $url_raw ? esc_url_raw( $url_raw ) : get_lubben_pharmacy_url();
 ?>
 <section class="section-pharmacy-cta">
 	<div class="container pharmacy-cta">

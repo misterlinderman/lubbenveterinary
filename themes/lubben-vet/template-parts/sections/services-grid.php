@@ -17,7 +17,7 @@ $defaults = array(
 	),
 	array(
 		'title' => __( 'After-Hours Emergencies', 'lubben-vet' ),
-		'text'  => __( 'call 402-234-1054 day or night.', 'lubben-vet' ),
+		'text'  => __( 'Reach Dr. Lubben after hours using the emergency contact below.', 'lubben-vet' ),
 	),
 );
 
@@ -25,8 +25,8 @@ $services = array();
 for ( $i = 0; $i < 4; $i++ ) {
 	$n       = $i + 1;
 	$def     = $defaults[ $i ];
-	$title_t = trim( (string) get_theme_mod( "lubben_vet_service_{$n}_title", '' ) );
-	$text_t  = trim( (string) get_theme_mod( "lubben_vet_service_{$n}_text", '' ) );
+	$title_t = trim( lubben_vet_get_page_field( "lubben_vet_service_{$n}_title" ) );
+	$text_t  = trim( lubben_vet_get_page_field( "lubben_vet_service_{$n}_text" ) );
 
 	$services[] = array(
 		'title' => '' !== $title_t ? $title_t : $def['title'],
@@ -34,8 +34,8 @@ for ( $i = 0; $i < 4; $i++ ) {
 	);
 }
 
-$section_heading = trim( (string) get_theme_mod( 'lubben_vet_services_heading', '' ) );
-$section_intro   = trim( (string) get_theme_mod( 'lubben_vet_services_intro', '' ) );
+$section_heading = trim( lubben_vet_get_page_field( 'lubben_vet_services_heading' ) );
+$section_intro   = trim( lubben_vet_get_page_field( 'lubben_vet_services_intro' ) );
 if ( '' === $section_heading ) {
 	$section_heading = __( 'What we do', 'lubben-vet' );
 }

@@ -991,6 +991,114 @@ body.site-nav-open {
   margin-top: var(--space-2);
 }
 
+.after-hours-emergency {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+}
+
+.after-hours-emergency__lead {
+  margin: 0;
+}
+
+.after-hours-emergency__trigger {
+  flex-shrink: 0;
+}
+
+.site-footer .after-hours-emergency {
+  margin-top: var(--space-3);
+}
+
+.site-footer .after-hours-emergency__trigger {
+  font-size: var(--fs-small, 0.9375rem);
+  min-height: 40px;
+  padding: var(--space-2) var(--space-4);
+}
+
+.emergency-modal[hidden] {
+  display: none;
+}
+
+.emergency-modal:not([hidden]) {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.emergency-modal-open {
+  overflow: hidden;
+}
+
+.emergency-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(15 23 42 / 55%);
+}
+
+.emergency-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 24rem);
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.emergency-modal__close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.emergency-modal__close:hover {
+  background: color-mix(in srgb, var(--color-text) 8%, transparent);
+  color: var(--color-text);
+}
+
+.emergency-modal__title {
+  margin: 0 var(--space-6) var(--space-3) 0;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+}
+
+.emergency-modal__body {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-muted);
+}
+
+.emergency-modal__number {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-heading);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.emergency-modal__actions {
+  margin: 0;
+}
+
 /* ============================
    About / Contact — structured sections
    ============================ */
@@ -1304,39 +1412,4 @@ body.site-nav-open {
   font-weight: 600;
   font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
   line-height: var(--lh-body);
-}
-
-/* Temporary — client logo preview toggle (remove with LUBBEN_VET_CLIENT_LOGO_PREVIEW). */
-.lubben-vet-logo-preview-toggle {
-  position: fixed;
-  right: max(var(--space-4), env(safe-area-inset-right, 0px));
-  bottom: max(var(--space-4), env(safe-area-inset-bottom, 0px));
-  z-index: 100002;
-  max-width: min(100vw - var(--space-8), 17rem);
-  padding: var(--space-3) var(--space-4);
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: var(--fs-small);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: 0.01em;
-  text-align: center;
-  color: var(--color-text);
-  background: rgb(255 255 255 / 94%);
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  box-shadow: 0 4px 20px rgb(41 42 118 / 12%);
-  cursor: pointer;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-}
-
-.lubben-vet-logo-preview-toggle:hover {
-  border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
-  color: var(--color-primary);
-}
-
-.lubben-vet-logo-preview-toggle:focus-visible {
-  outline: 3px solid var(--color-primary);
-  outline-offset: 2px;
 }

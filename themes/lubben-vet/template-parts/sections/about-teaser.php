@@ -2,13 +2,13 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-$teaser_img = absint( get_theme_mod( 'lubben_vet_about_teaser_image', 0 ) );
+$teaser_img = lubben_vet_get_page_field_int( 'lubben_vet_about_teaser_image' );
 
-$heading   = trim( (string) get_theme_mod( 'lubben_vet_about_teaser_heading', '' ) );
-$p1        = trim( (string) get_theme_mod( 'lubben_vet_about_teaser_p1', '' ) );
-$p2        = trim( (string) get_theme_mod( 'lubben_vet_about_teaser_p2', '' ) );
-$cta_label = trim( (string) get_theme_mod( 'lubben_vet_about_teaser_cta_label', '' ) );
-$cta_url   = trim( (string) get_theme_mod( 'lubben_vet_about_teaser_cta_url', '' ) );
+$heading   = trim( lubben_vet_get_page_field( 'lubben_vet_about_teaser_heading' ) );
+$p1        = trim( lubben_vet_get_page_field( 'lubben_vet_about_teaser_p1' ) );
+$p2        = trim( lubben_vet_get_page_field( 'lubben_vet_about_teaser_p2' ) );
+$cta_label = trim( lubben_vet_get_page_field( 'lubben_vet_about_teaser_cta_label' ) );
+$cta_url   = trim( lubben_vet_get_page_field( 'lubben_vet_about_teaser_cta_url' ) );
 
 if ( '' === $heading ) {
 	$heading = __( 'About Our Practice', 'lubben-vet' );

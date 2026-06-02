@@ -94,7 +94,7 @@ function lubben_vet_maps_embed_url() {
 function get_lubben_hours() {
 	$data = array(
 		__( 'Monday–Friday', 'lubben-vet' ) => __( '7am–6pm', 'lubben-vet' ),
-		__( 'Saturday', 'lubben-vet' )      => __( '8am–12pm', 'lubben-vet' ),
+		__( 'Saturday', 'lubben-vet' )      => __( '8am–12pm — please call ahead to confirm we are in the office', 'lubben-vet' ),
 		__( 'Sunday', 'lubben-vet' )        => __( 'Closed', 'lubben-vet' ),
 	);
 
@@ -102,15 +102,106 @@ function get_lubben_hours() {
 }
 
 /**
- * After-hours / emergency line copy (unescaped).
+ * After-hours emergency line digits (Dr. Lubben cell — not echoed in HTML).
  *
  * @return string
  */
-function lubben_vet_after_hours_note() {
-	$text = __( 'After-hours emergencies: call 402-234-1054 — the office line routes to Dr. Lubben.', 'lubben-vet' );
+function lubben_vet_emergency_phone_digits() {
+	$digits = '4022978315';
 
-	return apply_filters( 'lubben_vet_after_hours_note', $text );
+	return apply_filters( 'lubben_vet_emergency_phone_digits', $digits );
 }
+
+/**
+ * Obfuscated payload for front-end emergency phone decode (not the raw number).
+ *
+ * @return int[]
+ */
+function lubben_vet_emergency_phone_payload() {
+	$payload = array_map(
+		static function ( $char ) {
+			return ord( $char ) + 17;
+		},
+		str_split( lubben_vet_emergency_phone_digits() )
+	);
+
+	return apply_filters( 'lubben_vet_emergency_phone_payload', $payload );
+}
+
+/**
+ * After-hours lead copy (no phone number).
+ *
+ * @return string
+ */
+function lubben_vet_after_hours_lead() {
+	$text = __( 'After-hours emergencies: contact Dr. Lubben directly.', 'lubben-vet' );
+
+	return apply_filters( 'lubben_vet_after_hours_lead', $text );
+}
+
+/**
+ * After-hours / emergency line copy (unescaped).
+ *
+ * @deprecated Use lubben_vet_after_hours_lead() and lubben_vet_render_after_hours_emergency().
+ * @return string
+ */
+function lubben_vet_after_hours_note() {
+	return lubben_vet_after_hours_lead();
+}
+
+/**
+ * Emergency contact trigger + modal markup (number revealed via JS only).
+ *
+ * @param array<string, string> $args Optional wrapper tag/class overrides.
+ */
+function lubben_vet_render_after_hours_emergency( $args = array() ) {
+	$args = wp_parse_args(
+		$args,
+		array(
+			'tag'   => 'p',
+			'class' => 'after-hours-emergency',
+		)
+	);
+
+	$tag = tag_escape( $args['tag'] );
+	?>
+	<<?php echo $tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- tag_escape(). ?> class="<?php echo esc_attr( $args['class'] ); ?>">
+		<span class="after-hours-emergency__lead"><?php echo esc_html( lubben_vet_after_hours_lead() ); ?></span>
+		<button type="button" class="btn btn--secondary after-hours-emergency__trigger" data-emergency-trigger>
+			<?php esc_html_e( 'Emergency contact', 'lubben-vet' ); ?>
+		</button>
+	</<?php echo $tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<?php
+}
+
+/**
+ * One shared modal shell; phone digits injected on open in emergency-contact.js.
+ */
+function lubben_vet_print_emergency_contact_modal() {
+	?>
+	<div class="emergency-modal" id="lubben-emergency-modal" hidden>
+		<div class="emergency-modal__backdrop" data-emergency-close tabindex="-1" aria-hidden="true"></div>
+		<div
+			class="emergency-modal__dialog"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="lubben-emergency-modal-title"
+			aria-describedby="lubben-emergency-modal-body"
+		>
+			<button type="button" class="emergency-modal__close" data-emergency-close aria-label="<?php esc_attr_e( 'Close', 'lubben-vet' ); ?>">&times;</button>
+			<h2 class="emergency-modal__title" id="lubben-emergency-modal-title"><?php esc_html_e( 'After-hours emergency', 'lubben-vet' ); ?></h2>
+			<p class="emergency-modal__body" id="lubben-emergency-modal-body">
+				<?php esc_html_e( 'For an active animal emergency, call Dr. Lubben directly:', 'lubben-vet' ); ?>
+			</p>
+			<p class="emergency-modal__number" data-emergency-number hidden></p>
+			<p class="emergency-modal__actions">
+				<a class="btn btn--primary" href="#" data-emergency-call hidden><?php esc_html_e( 'Call now', 'lubben-vet' ); ?></a>
+			</p>
+		</div>
+	</div>
+	<?php
+}
+add_action( 'wp_footer', 'lubben_vet_print_emergency_contact_modal' );
 
 /**
  * Primary office phone (display string).
@@ -135,12 +226,23 @@ function get_lubben_phone_tel() {
 }
 
 /**
- * Staff records for About page cards.
+ * Online pharmacy store URL (external).
+ *
+ * @return string
+ */
+function get_lubben_pharmacy_url() {
+	$url = 'https://lubbenveterinary.myvetstoreonline.pharmacy';
+
+	return apply_filters( 'lubben_vet_pharmacy_url', $url );
+}
+
+/**
+ * Default staff records when the About page has no saved staff meta.
  *
  * @return array<int, array<string, int|string>>
  */
-function get_lubben_staff() {
-	$data = array(
+function lubben_vet_default_staff() {
+	return array(
 		array(
 			'name'     => 'Michaela Nielsen',
 			'role'     => __( 'Office Manager', 'lubben-vet' ),
@@ -160,6 +262,30 @@ function get_lubben_staff() {
 			'photo_id' => 0,
 		),
 	);
+}
+
+/**
+ * Staff records for About page cards.
+ *
+ * @param int $post_id About page ID; inferred from template when 0.
+ * @return array<int, array<string, int|string>>
+ */
+function get_lubben_staff( $post_id = 0 ) {
+	if ( $post_id <= 0 && function_exists( 'lubben_vet_page_fields_post_id' ) ) {
+		$post_id = lubben_vet_page_fields_post_id( 'about' );
+	}
+
+	$key = 'lubben_vet_about_staff';
+
+	if ( $post_id > 0 && function_exists( 'lubben_vet_get_page_field_repeater' ) ) {
+		if ( ! lubben_vet_page_meta_is_set( $post_id, $key ) ) {
+			$data = lubben_vet_default_staff();
+		} else {
+			$data = lubben_vet_get_page_field_repeater( $key, $post_id );
+		}
+	} else {
+		$data = lubben_vet_default_staff();
+	}
 
 	return apply_filters( 'lubben_vet_staff', $data );
 }
@@ -206,80 +332,64 @@ function lubben_vet_logo_url( $variant = 'default' ) {
 }
 
 /**
- * Client logo preview: State A — mark (2026-2) in header and footer.
- * State B — wordmark (words-1) in header, full lockup (1d) in footer.
+ * Whether nav/footer use wordmark + lockup (Home page field; default on after client sign-off).
  *
- * @return array{a: array{header: string, footer: string}, b: array{header: string, footer: string}}
+ * @return bool
  */
-function lubben_vet_client_logo_preview_map() {
-	static $map = null;
-
-	if ( $map !== null ) {
-		return $map;
+function lubben_vet_logo_uses_wordmark_lockup() {
+	if ( function_exists( 'lubben_vet_page_fields_post_id' ) && function_exists( 'lubben_vet_page_meta_is_set' ) ) {
+		$post_id = lubben_vet_page_fields_post_id( 'home' );
+		if ( $post_id > 0 && lubben_vet_page_meta_is_set( $post_id, 'lubben_vet_logo_wordmark_lockup' ) ) {
+			return (bool) get_post_meta( $post_id, 'lubben_vet_logo_wordmark_lockup', true );
+		}
 	}
 
-	$base = get_template_directory_uri() . '/assets/images/';
-	$map  = array(
-		'a' => array(
-			'header' => $base . 'lubben-vet-logo-2026-2.svg',
-			'footer' => $base . 'lubben-vet-logo-2026-2.svg',
-		),
-		'b' => array(
-			'header' => $base . 'lubben-vet-logo-2026-words-1.svg',
-			'footer' => $base . 'lubben-vet-logo-2026-1d.svg',
-		),
-	);
-
-	return $map;
+	return true;
 }
 
 /**
- * Logo img `src` for header (respects client preview when enabled).
+ * Header and footer logo URLs for the active branding option.
+ *
+ * @return array{header: string, footer: string}
+ */
+function lubben_vet_nav_logo_urls() {
+	static $urls = null;
+
+	if ( null !== $urls ) {
+		return $urls;
+	}
+
+	$base = get_template_directory_uri() . '/assets/images/';
+
+	if ( lubben_vet_logo_uses_wordmark_lockup() ) {
+		$urls = array(
+			'header' => $base . 'lubben-vet-logo-2026-words-1.svg',
+			'footer' => $base . 'lubben-vet-logo-2026-1d.svg',
+		);
+	} else {
+		$urls = array(
+			'header' => $base . 'lubben-vet-logo-2026-2.svg',
+			'footer' => $base . 'lubben-vet-logo-2026-2.svg',
+		);
+	}
+
+	return $urls;
+}
+
+/**
+ * Logo img `src` for header.
  *
  * @return string
  */
 function lubben_vet_header_logo_src() {
-	if ( defined( 'LUBBEN_VET_CLIENT_LOGO_PREVIEW' ) && LUBBEN_VET_CLIENT_LOGO_PREVIEW ) {
-		return lubben_vet_client_logo_preview_map()['a']['header'];
-	}
-
-	return lubben_vet_logo_url( 'on-primary' );
+	return lubben_vet_nav_logo_urls()['header'];
 }
 
 /**
- * Logo img `src` for footer (respects client preview when enabled).
+ * Logo img `src` for footer.
  *
  * @return string
  */
 function lubben_vet_footer_logo_src() {
-	if ( defined( 'LUBBEN_VET_CLIENT_LOGO_PREVIEW' ) && LUBBEN_VET_CLIENT_LOGO_PREVIEW ) {
-		return lubben_vet_client_logo_preview_map()['a']['footer'];
-	}
-
-	return lubben_vet_logo_url( 'footer' );
+	return lubben_vet_nav_logo_urls()['footer'];
 }
-
-/**
- * Early inline script: apply saved preview state before paint (avoids flash when possible).
- */
-function lubben_vet_print_client_logo_preview_head() {
-	if ( ! defined( 'LUBBEN_VET_CLIENT_LOGO_PREVIEW' ) || ! LUBBEN_VET_CLIENT_LOGO_PREVIEW ) {
-		return;
-	}
-
-	$map = lubben_vet_client_logo_preview_map();
-	?>
-	<script>
-	window.lubbenVetLogoPreview=<?php echo wp_json_encode( $map ); ?>;
-	window.lubbenVetLogoPreviewApply=function(s){
-		var c=window.lubbenVetLogoPreview;if(!c)return;
-		try{
-			if(localStorage.getItem('lubbenVetLogoPreview')!=='b')return;
-			var el=document.querySelector(s==='header'?'.site-header__logo':'.site-footer__logo');
-			if(el)el.src=c.b[s];
-		}catch(e){}
-	};
-	</script>
-	<?php
-}
-add_action( 'wp_head', 'lubben_vet_print_client_logo_preview_head', 2 );

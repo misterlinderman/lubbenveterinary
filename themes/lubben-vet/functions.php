@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'LUBBEN_VET_VERSION' ) ) {
-	define( 'LUBBEN_VET_VERSION', '0.1.5' );
+	define( 'LUBBEN_VET_VERSION', '0.1.8' );
 }
 
 if ( ! defined( 'LUBBEN_VET_DIR' ) ) {
@@ -20,11 +20,6 @@ if ( ! defined( 'LUBBEN_VET_URI' ) ) {
 	define( 'LUBBEN_VET_URI', get_template_directory_uri() );
 }
 
-/** Temporary client review: alternate logo sets + fixed toggle (disable after sign-off). */
-if ( ! defined( 'LUBBEN_VET_CLIENT_LOGO_PREVIEW' ) ) {
-	define( 'LUBBEN_VET_CLIENT_LOGO_PREVIEW', true );
-}
-
 $lubben_vet_includes = array(
 	'inc/setup.php',
 	'inc/enqueue.php',
@@ -33,6 +28,7 @@ $lubben_vet_includes = array(
 	'inc/icons.php',
 	'inc/images.php',
 	'inc/customizer.php',
+	'inc/page-fields.php',
 	'inc/redirects.php',
 	'inc/seo.php',
 	'inc/gravity-forms-helpers.php',

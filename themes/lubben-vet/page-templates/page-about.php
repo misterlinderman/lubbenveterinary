@@ -18,7 +18,7 @@ get_header();
 		<header class="page__header">
 			<h1 class="page__title"><?php the_title(); ?></h1>
 			<?php
-			$about_tagline = trim( (string) get_theme_mod( 'lubben_vet_about_page_tagline', '' ) );
+			$about_tagline = trim( lubben_vet_get_page_field( 'lubben_vet_about_page_tagline', get_the_ID() ) );
 			if ( '' === $about_tagline ) {
 				$about_tagline = __( 'Our practice, our doctor, and the people who make your visit welcoming.', 'lubben-vet' );
 			}
@@ -34,18 +34,19 @@ get_header();
 
 	<div class="about-sections">
 		<?php
-		$h_practice = trim( (string) get_theme_mod( 'lubben_vet_about_section_practice_title', '' ) );
-		$h_dr       = trim( (string) get_theme_mod( 'lubben_vet_about_section_dr_title', '' ) );
-		$h_staff    = trim( (string) get_theme_mod( 'lubben_vet_about_section_staff_title', '' ) );
-		$h_bottom   = trim( (string) get_theme_mod( 'lubben_vet_about_bottom_title', '' ) );
-		$lbl_bottom = trim( (string) get_theme_mod( 'lubben_vet_about_bottom_cta_label', '' ) );
+		$about_id = get_the_ID();
+		$h_practice = trim( lubben_vet_get_page_field( 'lubben_vet_about_section_practice_title', $about_id ) );
+		$h_dr       = trim( lubben_vet_get_page_field( 'lubben_vet_about_section_dr_title', $about_id ) );
+		$h_staff    = trim( lubben_vet_get_page_field( 'lubben_vet_about_section_staff_title', $about_id ) );
+		$h_bottom   = trim( lubben_vet_get_page_field( 'lubben_vet_about_bottom_title', $about_id ) );
+		$lbl_bottom = trim( lubben_vet_get_page_field( 'lubben_vet_about_bottom_cta_label', $about_id ) );
 
-		$p_practice_1 = trim( (string) get_theme_mod( 'lubben_vet_about_section_practice_p1', '' ) );
-		$p_practice_2 = trim( (string) get_theme_mod( 'lubben_vet_about_section_practice_p2', '' ) );
-		$p_practice_3 = trim( (string) get_theme_mod( 'lubben_vet_about_section_practice_p3', '' ) );
-		$p_dr_1       = trim( (string) get_theme_mod( 'lubben_vet_about_section_dr_p1', '' ) );
-		$p_dr_2       = trim( (string) get_theme_mod( 'lubben_vet_about_section_dr_p2', '' ) );
-		$pullquote    = trim( (string) get_theme_mod( 'lubben_vet_about_pullquote', '' ) );
+		$p_practice_1 = trim( lubben_vet_get_page_field( 'lubben_vet_about_section_practice_p1', $about_id ) );
+		$p_practice_2 = trim( lubben_vet_get_page_field( 'lubben_vet_about_section_practice_p2', $about_id ) );
+		$p_practice_3 = trim( lubben_vet_get_page_field( 'lubben_vet_about_section_practice_p3', $about_id ) );
+		$p_dr_1       = trim( lubben_vet_get_page_field( 'lubben_vet_about_section_dr_p1', $about_id ) );
+		$p_dr_2       = trim( lubben_vet_get_page_field( 'lubben_vet_about_section_dr_p2', $about_id ) );
+		$pullquote    = trim( lubben_vet_get_page_field( 'lubben_vet_about_pullquote', $about_id ) );
 
 		if ( '' === $h_practice ) {
 			$h_practice = __( 'Our Practice', 'lubben-vet' );
@@ -100,7 +101,7 @@ get_header();
 		<section class="about-section" id="our-staff">
 			<h2><?php echo esc_html( $h_staff ); ?></h2>
 			<div class="staff-grid">
-				<?php foreach ( get_lubben_staff() as $member ) : ?>
+				<?php foreach ( get_lubben_staff( $about_id ) as $member ) : ?>
 					<div class="staff-card">
 						<div class="staff-card__photo">
 							<?php

@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 ?>
-<!-- front-page: theme sections; copy and images from Appearance → Customize → Lubben Vet content. -->
+<!-- front-page: theme sections; edit under Pages → Home → Homepage sections. -->
 <?php
 get_template_part( 'template-parts/sections/hero' );
 get_template_part( 'template-parts/sections/about-teaser' );

@@ -30,7 +30,7 @@ function lubben_vet_customize_register( $wp_customize ) {
 		'lubben_vet_content',
 		array(
 			'title'       => __( 'Lubben Vet content', 'lubben-vet' ),
-			'description' => __( 'Edit homepage sections, announcements, About/Contact templates, and key images.', 'lubben-vet' ),
+			'description' => __( 'Legacy site-wide settings. Prefer editing each page under Pages → Home / About / Contact — fields appear below the editor.', 'lubben-vet' ),
 			'priority'    => 30,
 		)
 	);

@@ -18,7 +18,7 @@ get_header();
 		<header class="page__header">
 			<h1 class="page__title"><?php the_title(); ?></h1>
 			<?php
-			$c_tagline = trim( (string) get_theme_mod( 'lubben_vet_contact_page_tagline', '' ) );
+			$c_tagline = trim( lubben_vet_get_page_field( 'lubben_vet_contact_page_tagline', get_the_ID() ) );
 			if ( '' === $c_tagline ) {
 				$c_tagline = __( 'Hours, directions, and how to reach us.', 'lubben-vet' );
 			}
@@ -39,7 +39,7 @@ get_header();
 				<li><strong><?php echo esc_html( $label ); ?>:</strong> <?php echo esc_html( $value ); ?></li>
 			<?php endforeach; ?>
 		</ul>
-		<p><?php echo esc_html( lubben_vet_after_hours_note() ); ?></p>
+		<?php lubben_vet_render_after_hours_emergency(); ?>
 	</section>
 
 	<section class="contact-visit" id="visit">

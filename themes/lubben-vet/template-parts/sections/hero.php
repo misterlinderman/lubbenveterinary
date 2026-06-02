@@ -3,14 +3,14 @@
 defined( 'ABSPATH' ) || exit;
 
 $appointment_url = home_url( '/contact/#appointment-form' );
-$hero_id         = absint( get_theme_mod( 'lubben_vet_hero_image', 0 ) );
+$hero_id         = lubben_vet_get_page_field_int( 'lubben_vet_hero_image' );
 
-$hero_title             = trim( (string) get_theme_mod( 'lubben_vet_hero_title', '' ) );
-$hero_subtitle          = trim( (string) get_theme_mod( 'lubben_vet_hero_subtitle', '' ) );
-$hero_primary_label     = trim( (string) get_theme_mod( 'lubben_vet_hero_primary_label', '' ) );
-$hero_primary_url       = trim( (string) get_theme_mod( 'lubben_vet_hero_primary_url', '' ) );
-$hero_secondary_label   = trim( (string) get_theme_mod( 'lubben_vet_hero_secondary_label', '' ) );
-$hero_secondary_url_raw = trim( (string) get_theme_mod( 'lubben_vet_hero_secondary_url', '' ) );
+$hero_title             = trim( lubben_vet_get_page_field( 'lubben_vet_hero_title' ) );
+$hero_subtitle          = trim( lubben_vet_get_page_field( 'lubben_vet_hero_subtitle' ) );
+$hero_primary_label     = trim( lubben_vet_get_page_field( 'lubben_vet_hero_primary_label' ) );
+$hero_primary_url       = trim( lubben_vet_get_page_field( 'lubben_vet_hero_primary_url' ) );
+$hero_secondary_label   = trim( lubben_vet_get_page_field( 'lubben_vet_hero_secondary_label' ) );
+$hero_secondary_url_raw = trim( lubben_vet_get_page_field( 'lubben_vet_hero_secondary_url' ) );
 
 if ( '' === $hero_title ) {
 	$hero_title = __( 'Caring for the animals of southeast Nebraska.', 'lubben-vet' );

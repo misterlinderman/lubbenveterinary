@@ -221,8 +221,18 @@ if ( $primary_id ) {
 		);
 	}
 
-	// docs/01-information-architecture.md: Online Pharmacy is footer nav only, not primary.
-	lubben_vet_seed_strip_pharmacy_links( $primary_id, $pharmacy );
+	if ( ! lubben_vet_seed_menu_has_url( $primary_id, $pharmacy ) ) {
+		wp_update_nav_menu_item(
+			$primary_id,
+			0,
+			array(
+				'menu-item-title'  => __( 'Shop Pharmacy', 'lubben-vet' ),
+				'menu-item-url'    => $pharmacy,
+				'menu-item-status' => 'publish',
+				'menu-item-type'   => 'custom',
+			)
+		);
+	}
 
 	$locations = get_theme_mod( 'nav_menu_locations', array() );
 	if ( ! is_array( $locations ) ) {

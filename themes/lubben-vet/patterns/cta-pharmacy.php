@@ -11,7 +11,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"surface"} -->
-<p class="has-surface-color has-text-color">Order prescription diets, preventives, and other trusted products for home delivery.</p>
+<p class="has-surface-color has-text-color">Support your local veterinary clinics by shopping through our online pharmacy partners. Order food, prescriptions, and trusted supplies with convenient home delivery.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
