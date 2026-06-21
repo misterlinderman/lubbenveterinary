@@ -20,7 +20,7 @@ $hours         = get_lubben_hours();
 					<img src="<?php echo esc_url( lubben_vet_footer_logo_src() ); ?>" alt="" width="280" height="124" class="site-footer__logo" decoding="async" />
 					<span class="screen-reader-text"><?php bloginfo( 'name' ); ?></span>
 				</div>
-				<p class="site-footer__mission"><?php esc_html_e( 'Providing quality veterinary care to all of God\'s creatures great and small.', 'lubben-vet' ); ?></p>
+				<p class="site-footer__mission"><?php echo esc_html( lubben_vet_practice_mission() ); ?></p>
 				<p>
 					<a href="<?php echo esc_url( $maps_url ); ?>"><?php echo esc_html( $address_line ); ?></a><br>
 					<a href="<?php echo esc_url( get_lubben_phone_tel() ); ?>"><?php echo esc_html( get_lubben_phone() ); ?></a>

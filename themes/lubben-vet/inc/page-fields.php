@@ -31,13 +31,13 @@ function lubben_vet_page_field_groups() {
 	$image    = 'image';
 
 	$groups = array(
-		'home' => array(
-			'title'       => __( 'Homepage sections', 'lubben-vet' ),
-			'description' => __( 'These fields control the homepage layout. They only apply when this page is set as the static front page (Settings → Reading).', 'lubben-vet' ),
+		'site' => array(
+			'title'       => __( 'Site settings', 'lubben-vet' ),
+			'description' => __( 'Practice info and branding used across the whole site (footer, contact page, header). Edit here when hours or contact details change.', 'lubben-vet' ),
 			'sections'    => array(
 				'branding' => array(
-					'title'       => __( 'Site branding', 'lubben-vet' ),
-					'description' => __( 'Header and footer logos on every page of the site.', 'lubben-vet' ),
+					'title'       => __( 'Logos', 'lubben-vet' ),
+					'description' => __( 'Header and footer logos on every page.', 'lubben-vet' ),
 					'fields'      => array(
 						'lubben_vet_logo_wordmark_lockup' => array(
 							'type'    => $checkbox,
@@ -46,6 +46,75 @@ function lubben_vet_page_field_groups() {
 						),
 					),
 				),
+				'practice' => array(
+					'title'       => __( 'Practice info', 'lubben-vet' ),
+					'description' => __( 'Shown in the footer, contact page, and homepage visit section.', 'lubben-vet' ),
+					'fields'      => array(
+						'lubben_vet_practice_mission' => array(
+							'type'    => $textarea,
+							'label'   => __( 'Mission statement (footer)', 'lubben-vet' ),
+							'default' => __( 'Providing quality veterinary care to all of God\'s creatures great and small.', 'lubben-vet' ),
+						),
+						'lubben_vet_practice_phone'   => array(
+							'type'    => $text,
+							'label'   => __( 'Office phone', 'lubben-vet' ),
+							'default' => '402-234-1054',
+						),
+						'lubben_vet_practice_street'  => array(
+							'type'    => $text,
+							'label'   => __( 'Street address', 'lubben-vet' ),
+							'default' => '1276 Sand Hill Circle',
+						),
+						'lubben_vet_practice_suite'   => array(
+							'type'    => $text,
+							'label'   => __( 'Suite / unit', 'lubben-vet' ),
+							'default' => 'Suite 1',
+						),
+						'lubben_vet_practice_city'    => array(
+							'type'    => $text,
+							'label'   => __( 'City', 'lubben-vet' ),
+							'default' => 'Louisville',
+						),
+						'lubben_vet_practice_state'   => array(
+							'type'    => $text,
+							'label'   => __( 'State', 'lubben-vet' ),
+							'default' => 'NE',
+						),
+						'lubben_vet_practice_zip'     => array(
+							'type'    => $text,
+							'label'   => __( 'ZIP code', 'lubben-vet' ),
+							'default' => '68037',
+						),
+						'lubben_vet_practice_after_hours' => array(
+							'type'    => $textarea,
+							'label'   => __( 'After-hours note (above emergency button)', 'lubben-vet' ),
+							'default' => __( 'After-hours emergencies: contact Dr. Lubben directly.', 'lubben-vet' ),
+						),
+						'lubben_vet_practice_hours'   => array(
+							'type'        => 'repeater',
+							'label'       => __( 'Office hours', 'lubben-vet' ),
+							'add_label'   => __( 'Add hours row', 'lubben-vet' ),
+							'item_label'  => __( 'Hours row', 'lubben-vet' ),
+							'empty_label' => '',
+							'fields'      => array(
+								'label' => array(
+									'type'  => $text,
+									'label' => __( 'Days / label', 'lubben-vet' ),
+								),
+								'hours' => array(
+									'type'  => $text,
+									'label' => __( 'Hours', 'lubben-vet' ),
+								),
+							),
+						),
+					),
+				),
+			),
+		),
+		'home' => array(
+			'title'       => __( 'Homepage sections', 'lubben-vet' ),
+			'description' => __( 'Layout and copy for the homepage only (Settings → Reading → static front page).', 'lubben-vet' ),
+			'sections'    => array(
 				'marquee' => array(
 					'title'  => __( 'Announcement banner', 'lubben-vet' ),
 					'fields' => array(
@@ -261,7 +330,7 @@ function lubben_vet_page_field_groups() {
 		),
 		'contact' => array(
 			'title'       => __( 'Contact page options', 'lubben-vet' ),
-			'description' => __( 'Hours, address, and map come from the theme contact data and appear consistently site-wide.', 'lubben-vet' ),
+			'description' => __( 'Page intro only. Hours, address, and phone are edited under Site settings on the Home page.', 'lubben-vet' ),
 			'sections'    => array(
 				'contact_main' => array(
 					'title'  => __( 'Page intro', 'lubben-vet' ),
@@ -346,6 +415,7 @@ function lubben_vet_page_fields_post_id( $group_slug ) {
 
 	switch ( $group_slug ) {
 		case 'home':
+		case 'site':
 			$id = (int) get_option( 'page_on_front' );
 			break;
 		case 'about':
@@ -668,6 +738,7 @@ function lubben_vet_add_page_field_meta_boxes( $post ) {
 
 	$boxes = array();
 	if ( $is_front ) {
+		$boxes['site'] = lubben_vet_page_field_groups()['site'];
 		$boxes['home'] = lubben_vet_page_field_groups()['home'];
 	}
 	if ( $is_about ) {
@@ -774,6 +845,8 @@ function lubben_vet_render_page_field_control( $post, $key, $field ) {
 			}
 		} elseif ( 'image' === $type ) {
 			$value = absint( $mod );
+		} elseif ( isset( $field['default'] ) && is_scalar( $field['default'] ) ) {
+			$value = (string) $field['default'];
 		} else {
 			$value = is_scalar( $mod ) ? (string) $mod : '';
 		}
@@ -839,6 +912,10 @@ function lubben_vet_page_field_repeater_rows_for_admin( $post, $key, $field ) {
 
 	if ( 'lubben_vet_about_staff' === $key && function_exists( 'lubben_vet_default_staff' ) ) {
 		return lubben_vet_default_staff();
+	}
+
+	if ( 'lubben_vet_practice_hours' === $key && function_exists( 'lubben_vet_default_hours_rows' ) ) {
+		return lubben_vet_default_hours_rows();
 	}
 
 	return array();
@@ -1041,6 +1118,7 @@ function lubben_vet_allowed_page_field_keys_for_post( $post ) {
 
 	$slugs = array();
 	if ( $is_front ) {
+		$slugs[] = 'site';
 		$slugs[] = 'home';
 	}
 	if ( $is_about ) {

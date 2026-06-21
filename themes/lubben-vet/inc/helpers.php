@@ -9,17 +9,55 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Practice address parts (unescaped). Verbatim from docs/03-content-migration.md.
+ * Home page ID where site-wide practice settings are stored.
+ *
+ * @return int
+ */
+function lubben_vet_site_settings_post_id() {
+	if ( ! function_exists( 'lubben_vet_page_fields_post_id' ) ) {
+		return 0;
+	}
+
+	return lubben_vet_page_fields_post_id( 'site' );
+}
+
+/**
+ * Saved practice field value, or a theme default when meta was never set.
+ *
+ * @param string $key     Meta key.
+ * @param string $default Fallback when empty.
+ * @return string
+ */
+function lubben_vet_practice_field( $key, $default = '' ) {
+	$post_id = lubben_vet_site_settings_post_id();
+
+	if ( $post_id > 0 && function_exists( 'lubben_vet_page_meta_is_set' ) && lubben_vet_page_meta_is_set( $post_id, $key ) ) {
+		$value = get_post_meta( $post_id, $key, true );
+		return is_scalar( $value ) ? trim( (string) $value ) : $default;
+	}
+
+	if ( $post_id > 0 && function_exists( 'lubben_vet_get_page_field' ) ) {
+		$value = trim( lubben_vet_get_page_field( $key, $post_id ) );
+		if ( '' !== $value ) {
+			return $value;
+		}
+	}
+
+	return $default;
+}
+
+/**
+ * Practice address parts (unescaped).
  *
  * @return array<string, string>
  */
 function get_lubben_address() {
 	$data = array(
-		'street' => '1276 Sand Hill Circle',
-		'suite'  => 'Suite 1',
-		'city'   => 'Louisville',
-		'state'  => 'NE',
-		'zip'    => '68037',
+		'street' => lubben_vet_practice_field( 'lubben_vet_practice_street', '1276 Sand Hill Circle' ),
+		'suite'  => lubben_vet_practice_field( 'lubben_vet_practice_suite', 'Suite 1' ),
+		'city'   => lubben_vet_practice_field( 'lubben_vet_practice_city', 'Louisville' ),
+		'state'  => lubben_vet_practice_field( 'lubben_vet_practice_state', 'NE' ),
+		'zip'    => lubben_vet_practice_field( 'lubben_vet_practice_zip', '68037' ),
 	);
 
 	return apply_filters( 'lubben_vet_address', $data );
@@ -85,18 +123,78 @@ function lubben_vet_maps_embed_url() {
 }
 
 /**
- * Office hours labels → lines (unescaped values).
+ * Default office-hours rows for admin and front end.
  *
- * Labels/values use en dashes per docs/03-content-migration.md §Content to keep verbatim.
+ * @return array<int, array{label: string, hours: string}>
+ */
+function lubben_vet_default_hours_rows() {
+	return array(
+		array(
+			'label' => __( 'Monday–Tuesday', 'lubben-vet' ),
+			'hours' => __( '7am–6pm', 'lubben-vet' ),
+		),
+		array(
+			'label' => __( 'Wednesday', 'lubben-vet' ),
+			'hours' => __( '7am–1pm', 'lubben-vet' ),
+		),
+		array(
+			'label' => __( 'Thursday–Friday', 'lubben-vet' ),
+			'hours' => __( '7am–6pm', 'lubben-vet' ),
+		),
+		array(
+			'label' => __( 'Saturday', 'lubben-vet' ),
+			'hours' => __( '8am–12pm — please call ahead to confirm we are in the office', 'lubben-vet' ),
+		),
+		array(
+			'label' => __( 'Sunday', 'lubben-vet' ),
+			'hours' => __( 'Closed', 'lubben-vet' ),
+		),
+	);
+}
+
+/**
+ * Office hours rows from site settings.
+ *
+ * @return array<int, array{label: string, hours: string}>
+ */
+function lubben_vet_get_practice_hours_rows() {
+	$post_id = lubben_vet_site_settings_post_id();
+	$key     = 'lubben_vet_practice_hours';
+
+	if ( $post_id > 0 && function_exists( 'lubben_vet_page_meta_is_set' ) && lubben_vet_page_meta_is_set( $post_id, $key ) ) {
+		if ( function_exists( 'lubben_vet_get_page_field_repeater' ) ) {
+			$rows = lubben_vet_get_page_field_repeater( $key, $post_id );
+			if ( ! empty( $rows ) ) {
+				return $rows;
+			}
+		}
+	}
+
+	return lubben_vet_default_hours_rows();
+}
+
+/**
+ * Office hours labels → lines (unescaped values).
  *
  * @return array<string, string>
  */
 function get_lubben_hours() {
-	$data = array(
-		__( 'Monday–Friday', 'lubben-vet' ) => __( '7am–6pm', 'lubben-vet' ),
-		__( 'Saturday', 'lubben-vet' )      => __( '8am–12pm — please call ahead to confirm we are in the office', 'lubben-vet' ),
-		__( 'Sunday', 'lubben-vet' )        => __( 'Closed', 'lubben-vet' ),
-	);
+	$data = array();
+
+	foreach ( lubben_vet_get_practice_hours_rows() as $row ) {
+		$label = isset( $row['label'] ) ? trim( (string) $row['label'] ) : '';
+		$hours = isset( $row['hours'] ) ? trim( (string) $row['hours'] ) : '';
+		if ( '' === $label || '' === $hours ) {
+			continue;
+		}
+		$data[ $label ] = $hours;
+	}
+
+	if ( empty( $data ) ) {
+		foreach ( lubben_vet_default_hours_rows() as $row ) {
+			$data[ $row['label'] ] = $row['hours'];
+		}
+	}
 
 	return apply_filters( 'lubben_vet_hours', $data );
 }
@@ -134,7 +232,10 @@ function lubben_vet_emergency_phone_payload() {
  * @return string
  */
 function lubben_vet_after_hours_lead() {
-	$text = __( 'After-hours emergencies: contact Dr. Lubben directly.', 'lubben-vet' );
+	$text = lubben_vet_practice_field(
+		'lubben_vet_practice_after_hours',
+		__( 'After-hours emergencies: contact Dr. Lubben directly.', 'lubben-vet' )
+	);
 
 	return apply_filters( 'lubben_vet_after_hours_lead', $text );
 }
@@ -209,7 +310,7 @@ add_action( 'wp_footer', 'lubben_vet_print_emergency_contact_modal' );
  * @return string
  */
 function get_lubben_phone() {
-	$phone = '402-234-1054';
+	$phone = lubben_vet_practice_field( 'lubben_vet_practice_phone', '402-234-1054' );
 
 	return apply_filters( 'lubben_vet_phone', $phone );
 }
@@ -309,6 +410,20 @@ function lubben_vet_staff_initials( $name ) {
 }
 
 /**
+ * Footer mission statement (unescaped).
+ *
+ * @return string
+ */
+function lubben_vet_practice_mission() {
+	$text = lubben_vet_practice_field(
+		'lubben_vet_practice_mission',
+		__( 'Providing quality veterinary care to all of God\'s creatures great and small.', 'lubben-vet' )
+	);
+
+	return apply_filters( 'lubben_vet_practice_mission', $text );
+}
+
+/**
  * URL for a bundled SVG logo.
  *
  * @param string $variant `default` field mark on light UI; `on-primary` light artwork on primary;
@@ -338,7 +453,7 @@ function lubben_vet_logo_url( $variant = 'default' ) {
  */
 function lubben_vet_logo_uses_wordmark_lockup() {
 	if ( function_exists( 'lubben_vet_page_fields_post_id' ) && function_exists( 'lubben_vet_page_meta_is_set' ) ) {
-		$post_id = lubben_vet_page_fields_post_id( 'home' );
+		$post_id = lubben_vet_page_fields_post_id( 'site' );
 		if ( $post_id > 0 && lubben_vet_page_meta_is_set( $post_id, 'lubben_vet_logo_wordmark_lockup' ) ) {
 			return (bool) get_post_meta( $post_id, 'lubben_vet_logo_wordmark_lockup', true );
 		}

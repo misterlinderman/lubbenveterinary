@@ -391,7 +391,7 @@ function lubben_vet_customize_register( $wp_customize ) {
 		'lubben_vet_home_visit',
 		array(
 			'title'       => __( 'Home — Visit us', 'lubben-vet' ),
-			'description' => __( 'Address, hours map, and after-hours note still come from the theme contact data.', 'lubben-vet' ),
+			'description' => __( 'Section heading only. Address and hours come from Site settings on the Home page.', 'lubben-vet' ),
 			'panel'       => 'lubben_vet_content',
 			'priority'    => 60,
 		)
